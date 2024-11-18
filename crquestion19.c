@@ -19,7 +19,7 @@ if(i==aNum)
 printf("Armstrong Number= %d\n",i); 
 }
 }
-return  0;qaaqaaaaaaaa
+return  0;
 }
 
 //[PRIYANKA GUPTA]
