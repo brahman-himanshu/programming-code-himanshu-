@@ -1,0 +1,13 @@
+.Gradient{
+    background: linear-gradient(to left ,
+    blue
+    indigo  ,
+    orange ,
+    red ,
+    yellow ,
+    green ,
+    skyblue );
+    -webkit-background-clip: text;
+    color: transparent;
+
+}
