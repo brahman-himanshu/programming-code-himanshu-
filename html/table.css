@@ -1,0 +1,25 @@
+body{
+    background-color:rgb(185, 229, 232);
+    margin: 0px;
+    padding: 0px;
+}
+.h2{
+    text-align: center;
+
+}
+.tablee{
+    text-align: center;border-collapse: collapse;
+    width: 100%;
+
+
+}
+
+table {
+    border-collapse: collapse;
+}
+
+ th,td{
+    padding: 10px;
+    border: 1px solid black;
+
+}

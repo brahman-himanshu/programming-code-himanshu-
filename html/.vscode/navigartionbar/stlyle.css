@@ -1,0 +1,53 @@
+body{
+    padding: 0%;
+    margin: 0%;
+}
+header{
+    background:linear-gradient(to left,green,white ,orange  )
+}
+header {
+    display: flex;
+    /*justify-content: center;*/
+    align-items: center;
+padding: 20px;
+}
+img{
+    width: 80px;
+    padding-right: 350px;
+    float: left;
+    text-decoration: none;
+}
+nav a{
+text-decoration: none;
+color: black;
+text-shadow: 0px 0px 2px black;
+font-size: x-large;
+/* padding: 50px; */
+margin: 50px;
+
+}
+nav a:hower{
+    color:red;
+}
+.card{
+    width: 100%;
+transition: 0.3s;
+box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+border-radius: 5px;
+padding-top: 50px;
+display: inline-block;
+}
+.card img{
+    width: 80px;
+    inline-size: 10%;
+}
+.container{
+    padding: 100px;
+}
+img{
+    border-radius: 5px 5px 0 0;
+}
+.imgcard2 img {
+    width: 10%;
+    padding-top: 50px;
+}
