@@ -1,0 +1,24 @@
+
+body{
+    display: grid;
+    content: center ;
+
+}
+html , body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: 100wh;
+    height: 100vh;
+    text-overflow:none ;
+
+}
+.parent {
+    border: 2px solid black;
+    background-color: aliceblue;
+
+    
+    padding:10px;
+                         ;
+}

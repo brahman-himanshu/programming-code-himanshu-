@@ -1,10 +1,19 @@
-*{
-    padding: 0;
-    width: 0;
+.container{
+    display: flex;
+    text-align: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    display: inline;
+    border: 2px solid black;
+    
 }
-
-
 body{
-    background-color: red;
+    display: grid;
+    place-content: center ;
 }
 
+.img{
+    width: 69px;;
+    
+}
