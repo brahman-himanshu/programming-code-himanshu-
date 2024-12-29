@@ -1,0 +1,33 @@
+
+body{
+    background-color: pink;
+    margin: 0%;
+    padding: 0%;
+   width: 100%;
+}
+link {
+    background-color: blue;
+    
+}
+.head {
+
+    display: flex; 
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background-color: black;
+    font-size: large;
+    background-color: aqua; 
+    gap:20px ; 
+}
+.footer1{
+    margin-top:600px;
+    display: flex;
+    justify-content: center;
+    background:black;
+    color: WHITE ; 
+    position: fixed;
+    width: 100%;
+margin-bottom: 0%;
+position: static;
+}

@@ -1,0 +1,8 @@
+
+footer{
+   display: flex;
+width: 100%;
+background: red ;
+margin-bottom: 0%;
+position: sticky;
+}

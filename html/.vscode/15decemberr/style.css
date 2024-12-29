@@ -96,16 +96,3 @@
     text-align: center;
     margin-top: 20px;
   }
-  
-  /* Media Queries */
-  @media (min-width: 768px) {
-    .course-grid {
-      grid-template-columns: repeat(3, 1fr);
-    }
-  }
-  
-  @media (max-width: 767px) {
-    .course-grid {
-      grid-template-columns: 1fr;
-    }
-  }
