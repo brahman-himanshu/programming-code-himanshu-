@@ -104,31 +104,20 @@ gap: .3rem;
     font-size: 1.5rem;
     color: white ;
 }
-.amazonimage img{
-    width: 100%;
-    height: 30rem;
-    background-repeat: repeat;
+.left{
+    width: 30%;
+    height: 100%;
+    border: 2px solid black ;
+    /* background-color:violet; */
+    /* margin-top: 15px ; */
+    /* margin-bottom: 0; */
+}
+.left-items{
+    margin-left: 3rem ;
+}
 
-}
-.containers{
-
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-evenly;
-    background-color: #d5dbdb;
-}
-.box{
-    margin-top: 15px;
-    
-    width: 23% ;
-    gap: 10px ;
-    height: 20rem;
-    border: 2px solid white;
-    background-color: white;
-    padding: 20px 0 15px ;
-}
 .first{
-    margin-top: 2rem;
+    /* margin-top: 2rem; */
     background-color: #212f3d;
     height: 2.5rem;
     color:#fff;
@@ -227,53 +216,29 @@ gap: .3rem;
     text-decoration: none ;
     margin-bottom: .5rem;
 }
-.box .boximg img{
-    height:250px;
-    margin-left: 2rem;
-    margin-right: 2rem;
-    margin-bottom: 2rem; 
-}
-.box h2{
-    /* margin-bottom: 2rem; */
-    margin-left: 2rem;
-}
-.box7 img{
-    width: 15rem;
-}
-.box5{
+hr{
     width: 100%;
+    color: #0f1111;
 }
-.box6 {
-    width: 50%;
-    height: 300px;
-    /* background-image: cover ; */
-    
-    margin-top: 1px;
-    /* font-size: 15rem; */
-    gap: 20px ;
-    /* border: 2px solid black; */
-    /* background-color: whitesmoke; */
-    padding: 20px 0 15px ;
-    
+.left-items hr{
+    margin-top: 1rem ;
+    margin-bottom: 2rem ;
+}
+.left-items h2{
+    margin-top: 1rem;
+    margin-bottom: 1rem;
 
-} 
-.box6 .boximg img{
-    width: 100%;
-    height: 50%;
-    margin-bottom: 19rem;
-    background-image: 100%;
 }
-.box17{
-    width: 100%;
-}
-.box17 h2{
+.left  .right{
 
+    display: flex;
+    height: 100%;
+    align-items: center;
 
-    padding: 20px;
 }
-.box13 {
-    width: 100%;
+.right{
+    width: 70%;
 }
-.box8 img{
-    margin-left: 3rem;
+.glass-infomation{
+    display: flex;
 }

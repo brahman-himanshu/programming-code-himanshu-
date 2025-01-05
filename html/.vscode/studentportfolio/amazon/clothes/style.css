@@ -1,0 +1,240 @@
+* {
+  margin: 0;
+  font-family: arial;
+  /* border:  border-box; */
+}
+.navbar {
+  height: 60px;
+  background: #0f1111;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+.nav-logo {
+  height: 50px;
+  width: 100px;
+}
+.logo {
+  background-image: url("https://www.vecteezy.com/vector-art/14018563-amazon-logo7-on-transparent-background");
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  font-size: 3rem;
+}
+.border {
+  border: 2px solid transparent;
+}
+.border:hover {
+  border: 1.5px solid white;
+}
+.nav-search {
+  display: flex;
+  background-color: pink;
+  width: 620px;
+  height: 40px;
+  border-radius: 4px;
+}
+.search-select {
+  background-color: #f3f3f3;
+  width: 50px;
+  text-align: center;
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+  border: none;
+}
+.search-input {
+  width: 100%;
+  font-size: 1rem;
+  border: none;
+}
+.search-icon {
+  width: 45px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1rem;
+  background-color: #febd68;
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+  color: #0f1111;
+}
+span {
+  font-size: 1.3rem;
+}
+.nav-signin {
+  display: flex;
+}
+.nav-signin p {
+  display: flex;
+  text-align: center;
+  justify-content: center;
+}
+.shopping-cart {
+  font-size: 2.5rem;
+  display: flex;
+}
+.flag {
+  width: 0.01rem;
+  display: flex;
+  height: 20px;
+  justify-content: center;
+  text-align: center;
+  gap: 0.3rem;
+}
+.listing {
+  width: 100%;
+  background-color: #212f3d;
+  height: 3rem;
+  /* border: 2px solid white ; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  justify-content: space-evenly;
+}
+.listing a {
+  color: #f3f3f3;
+  text-decoration: none;
+}
+.menubar {
+  display: flex;
+  gap: 0.3rem;
+  font-size: 1.5rem;
+  color: white;
+}
+.left {
+  width: 30%;
+  height: 100%;
+  border: 2px solid black;
+  /* background-color:violet; */
+  /* margin-top: 15px ; */
+  /* margin-bottom: 0; */
+}
+.left-items {
+  margin-left: 3rem;
+}
+
+.first {
+  /* margin-top: 2rem; */
+  background-color: #212f3d;
+  height: 2.5rem;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.second {
+  background-color: #1b2631;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  height: 15rem;
+  justify-content: space-evenly;
+}
+.second h2 {
+  margin-top: 3rem;
+}
+.second a {
+  display: block;
+  margin-top: 0.4rem;
+  color: white;
+  text-decoration: none;
+}
+.three {
+  background-color: #1c2833;
+  height: 7rem;
+  width: 100%;
+}
+.footerimg {
+  display: flex;
+  justify-content: center;
+}
+.footerimg img {
+  margin-top: 40px;
+  width: 4rem;
+  height: 40px;
+  align-items: center;
+}
+.threebutton {
+  align-items: center;
+  margin-top: 40px;
+  display: flex;
+  justify-content: center;
+  height: 2rem;
+}
+.three {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+}
+
+.threebutton button {
+  margin-top: 10px;
+  width: 10rem;
+  height: 2rem;
+}
+.four {
+  width: 100%;
+  height: 20rem;
+  background-color: #17202a;
+  display: flex;
+  justify-content: center;
+  justify-content: space-evenly;
+}
+.four h2 {
+  margin-top: 40px;
+  color: white;
+}
+.four a {
+  display: block;
+  margin-top: 0.8rem;
+  color: white;
+  text-decoration: none;
+}
+.fourlast {
+  background-color: #17202a;
+  width: 100%;
+  height: 5rem;
+}
+.fourlast p {
+  display: flex;
+  justify-content: center;
+  color: #fff;
+}
+.fourlasta {
+  gap: 3rem;
+  display: flex;
+  justify-content: center;
+}
+.fourlasta a {
+  color: #fff;
+  text-decoration: none;
+  margin-bottom: 0.5rem;
+}
+hr {
+  width: 100%;
+  color: #0f1111;
+}
+.left-items hr {
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+}
+.left-items h2 {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+.left .right {
+  display: flex;
+  height: 100%;
+  align-items: center;
+}
+.right {
+  width: 70%;
+}
+.glass-infomation {
+  display: flex;
+}
+.common {
+  width: 100vw;
+  display: flex;
+}
