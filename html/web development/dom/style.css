@@ -1,0 +1,21 @@
+h1{
+    cursor: blue ;
+}
+p{
+    color: pink ;
+}
+button{
+    color: red ;
+    font-size: 2rem ;
+}
+/* body{ */
+    /* background-color: gray; */
+/* } */
+.dark{
+    background-color: black;
+    color: white;
+}
+.light{
+    background-color: white ;
+    color:black;
+}
