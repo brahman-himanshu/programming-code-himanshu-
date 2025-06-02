@@ -40,8 +40,8 @@
 
 
 // next
-fetch('https://movies-app-24x7.netlify.app/')
-    .then(response => {
+fetch('https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=c54dacb95631330e657284be2723541d&page=1')
+    .then((response)=> {
         return response.json();
     })
-    .then(data =>{ console.log(data)})    ;
+    .then((data) =>{ console.log(data)}) 

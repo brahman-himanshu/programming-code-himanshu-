@@ -1,0 +1,167 @@
+.containers{
+
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    background-color: #d5dbdb;
+}
+.box{
+    margin-top: 15px;
+    
+    width: 23% ;
+    gap: 10px ;
+    height: 20rem;
+    border: 2px solid white;
+    background-color: white;
+    padding: 20px 0 15px ;
+}
+.first{
+    margin-top: 2rem;
+    background-color: #212f3d;
+    height: 2.5rem;
+    color:#fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.second{
+    background-color: #1b2631;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    height: 15rem ;
+    justify-content: space-evenly;
+}
+.second h2{
+    margin-top: 3rem;
+
+}
+.second a{
+    display: block;
+    margin-top: .4rem;
+    color:white;
+    text-decoration: none ;
+    
+}
+.three{
+    background-color: #1c2833;
+    height: 7rem;
+    width: 100%;
+}
+.footerimg{
+    display: flex;
+    justify-content: center;
+}
+.footerimg img {
+    margin-top: 40px;
+    width: 4rem;
+    height: 40px ;
+    align-items: center;
+}
+.threebutton{
+    align-items: center;
+    margin-top: 40px ;
+    display: flex;
+    justify-content: center;
+    height: 2rem;
+}
+.three{
+    display: flex;
+    justify-content: center;
+    gap: 40px ;
+}
+
+.threebutton button{
+    margin-top: 10px ;
+    width: 10rem;
+    height: 2rem;
+}
+.four{
+    width: 100%;
+    height: 20rem;
+    background-color: #17202a;
+    display: flex;
+    justify-content: center;
+    justify-content: space-evenly;
+}
+.four h2{
+    margin-top: 40px ;
+    color: white ;
+}
+.four a{
+    display: block;
+    margin-top: .8rem;
+    color:white;
+    text-decoration: none ;
+    
+}
+.fourlast{
+    background-color: #17202a;
+    width: 100%;
+    height: 5rem;
+}
+.fourlast p{
+    display: flex;
+    justify-content: center;
+    color: #fff;
+}
+.fourlasta{
+    gap: 3rem;
+    display: flex;
+    justify-content: center;
+}
+.fourlasta a{
+    color: #fff;
+    text-decoration: none ;
+    margin-bottom: .5rem;
+}
+.box .boximg img{
+    height:250px;
+    margin-left: 2rem;
+    margin-right: 2rem;
+    margin-bottom: 2rem; 
+}
+.box h2{
+    /* margin-bottom: 2rem; */
+    margin-left: 2rem;
+}
+.box7 img{
+    width: 15rem;
+}
+.box5{
+    width: 100%;
+}
+.box6 {
+    width: 50%;
+    height: 300px;
+    /* background-image: cover ; */
+    
+    margin-top: 1px;
+    /* font-size: 15rem; */
+    gap: 20px ;
+    /* border: 2px solid black; */
+    /* background-color: whitesmoke; */
+    padding: 20px 0 15px ;
+    
+
+} 
+.box6 .boximg img{
+    width: 100%;
+    height: 50%;
+    margin-bottom: 19rem;
+    background-image: 100%;
+}
+.box17{
+    width: 100%;
+}
+.box17 h2{
+
+
+    padding: 20px;
+}
+.box13 {
+    width: 100%;
+}
+.box8 img{
+    margin-left: 3rem;
+}

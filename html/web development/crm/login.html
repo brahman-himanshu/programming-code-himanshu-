@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Login - CRM</title>
+  <link href="css/style.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+  <div id="main">
+    <div class="logo">CRM <span style="color:#CC6600;">CRM</span></div>
+    <form action="Login.jsp" method="post">
+      <label>User ID:</label><input type="text" name="uid" required><br>
+      <label>Password:</label><input type="password" name="pass" required><br>
+      <label>Category:</label>
+      <select name="cat">
+        <option value="Admin">Admin</option>
+        <option value="User">User</option>
+      </select><br>
+      <input type="submit" value="Login">
+    </form>
+  </div>
+</body>
+</html>

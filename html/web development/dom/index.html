@@ -1,17 +1,83 @@
-<!DOCTYPE html>
-<html lang="en">
+
+    <!DOCTYPE html>
+<html lang="hi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>मेरा पोर्टफोलियो</title>
+  <link rel="stylesheet" href="./style.css" />
 </head>
 <body>
-    <h1 >DOM  and events  practice classes srg training institues </h1>
-    <h3>himanshu kumar </h3>
-    <button id="mode  "> mode change </button>
-    <p>motivator pawan sir and nizam sir </p>
-    <button id="h">click me </button>
-    <script src="./script.js"></script>
+
+  <!-- हेडर -->
+  <header>
+    <nav class="navbar">
+      <div class="logo">मेरा नाम</div>
+      <ul class="nav-links">
+        <li><a href="#home">होम</a></li>
+        <li><a href="#about">परिचय</a></li>
+        <li><a href="#skills">कौशल</a></li>
+        <li><a href="#projects">प्रोजेक्ट्स</a></li>
+        <li><a href="#contact">संपर्क</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- परिचय सेक्शन -->
+  <section id="home" class="hero">
+    <h1>नमस्ते, मैं एक वेब डेवलपर हूँ</h1>
+    <p>HTML, CSS, और JavaScript में विशेषज्ञता</p>
+  </section>
+
+  <!-- परिचय विवरण -->
+  <section id="about" class="about">
+    <h2>मेरे बारे में</h2>
+    <p>मैं एक उत्साही वेब डेवलपर हूँ जो उत्तर प्रदेश, भारत से हूँ। मुझे फ्रंटएंड और बैकएंड डेवलपमेंट में रुचि है।</p>
+  </section>
+
+  <!-- कौशल सेक्शन -->
+  <section id="skills" class="skills">
+    <h2>मेरे कौशल</h2>
+    <ul>
+      <li>HTML5</li>
+      <li>CSS3</li>
+      <li>JavaScript</li>
+      <li>React</li>
+      <li>Node.js</li>
+    </ul>
+  </section>
+
+  <!-- प्रोजेक्ट्स सेक्शन -->
+  <section id="projects" class="projects">
+    <h2>मेरे प्रोजेक्ट्स</h2>
+    <div class="project-grid">
+      <div class="project-card">
+        <h3>प्रोजेक्ट 1</h3>
+        <p>यह एक ई-कॉमर्स वेबसाइट है जो React और Node.js का उपयोग करती है।</p>
+      </div>
+      <div class="project-card">
+        <h3>प्रोजेक्ट 2</h3>
+        <p>यह एक ब्लॉग प्लेटफॉर्म है जो HTML, CSS, और JavaScript का उपयोग करता है।</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- संपर्क सेक्शन -->
+  <section id="contact" class="contact">
+    <h2>संपर्क करें</h2>
+    <form>
+      <input type="text" placeholder="आपका नाम" required />
+      <input type="email" placeholder="आपका ईमेल" required />
+      <textarea placeholder="आपका संदेश" required></textarea>
+      <button type="submit">भेजें</button>
+    </form>
+  </section>
+
+  <!-- फुटर -->
+  <footer>
+    <p>&copy; 2025 मेरा नाम. सभी अधिकार सुरक्षित।</p>
+  </footer>
+
 </body>
 </html>
+
