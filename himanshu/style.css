@@ -1,0 +1,72 @@
+.heading-h2 {
+    margin-left: 10px;
+    margin-right: 12px;
+  }
+  .imagei1 {
+    height: 375px;
+  }
+  .container-fluid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 30px;
+  }
+  
+  .btn:active {
+    opacity: 0.3;
+    transition: opacity 0.25s;
+  }
+  .margin {
+    margin-right: 50px;
+    color: white;
+  }
+  .attribute {
+    color: white;
+    text-decoration: none;
+    margin: 10px;
+    font-weight: bold;
+  }
+  .attribute:hover {
+    opacity: 0.7;
+    transition: opacity 0.25s;
+  }
+  .attribute:active {
+    opacity: 0.5;
+    color: red;
+  }
+  
+  .header {
+    background-color: #9b59b6;
+  }
+  
+  .header:hover {
+    padding: 10px;
+  }
+  .student-button {
+    background-color: #9b59b6;
+    border: none;
+  }
+  .student-button:hover {
+    background-color: #9b59b6;
+    border: none;
+    opacity: 0.7;
+  }
+  .student-button:active {
+    background-color: #9b59b6;
+    color: red;
+    opacity: 0.5;
+  }
+  .footer {
+    background-color: #9b59b6;
+  }
+  .headerh3 {
+    color: white;
+    text-align: center;
+  }
+  .headerimg {
+    height: 50px;
+  }
+  .footerh6 {
+    color: white;
+  }
+  
