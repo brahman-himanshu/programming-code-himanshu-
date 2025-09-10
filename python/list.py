@@ -6,3 +6,5 @@ print(thislist[1])
 #add item in list 
 thislist.append  ("sharma ")
 print(thislist)
+print(type(thislist))
+print(len(thislist))

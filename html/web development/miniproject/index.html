@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Blockchain Supply Chain</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/ethers/dist/ethers.min.js"></script>
+</head>
+<body>
+  <div class="container">
+    <h1>Blockchain Supply Chain DApp</h1>
+    <button onclick="connectWallet()">Connect Wallet</button>
+
+    <h2>Register Product</h2>
+    <input type="text" id="productName" placeholder="Product Name">
+    <button onclick="registerProduct()">Register</button>
+
+    <h2>Get Product Details</h2>
+    <input type="number" id="productId" placeholder="Product ID">
+    <button onclick="getProduct()">Get Details</button>
+
+    <div id="productDetails"></div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
