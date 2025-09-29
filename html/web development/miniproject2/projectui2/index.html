@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delhi-NCR Pollution Dashboard | AI-Powered Monitoring</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    
+      <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-wind"></i>
+                    <h1>Delhi-NCR Pollution Dashboard</h1>
+                </div>
+                <nav class="nav-links">
+                    <a href="#" class="active">Dashboard</a>
+                    <a href="#">Source Identification</a>
+                    <a href="#">Forecasting</a>
+                    <a href="#">Policy Analysis</a>
+                    <a href="#">Data Sources</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+    
+    <!-- location tracker -->
+   
+    
+  <div class="location-card">
+    <div class="location-header">
+      <h2 id="location">Detecting location...</h2>
+      <div class="aqi-value" id="aqi">--</div>
+    </div>
+    <p id="air-quality">Air Quality: --</p>
+  </div>
+
+
+
+    <!-- Dashboard Overview -->
+    <section class="dashboard-overview">
+        <div class="container">
+            <h2 class="section-title"><i class="fas fa-tachometer-alt"></i> Dashboard Overview</h2>
+            <div class="overview-cards">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Current AQI</div>
+                        <div class="card-icon aqi">
+                            <i class="fas fa-lungs"></i>
+                        </div>
+                    </div>
+                    <div class="card-value" style="color: var(--danger);">342</div>
+                    <div class="card-subtitle">Very Poor</div>
+                    <div class="card-change negative">
+                        <i class="fas fa-arrow-up"></i> 12% from yesterday
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Primary Pollutant</div>
+                        <div class="card-icon forecast">
+                            <i class="fas fa-smog"></i>
+                        </div>
+                    </div>
+                    <div class="card-value" style="color: var(--warning);">PM2.5</div>
+                    <div class="card-subtitle">Particulate Matter</div>
+                    <div class="card-change negative">
+                        <i class="fas fa-arrow-up"></i> 18% above safe limits
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Top Pollution Source</div>
+                        <div class="card-icon sources">
+                            <i class="fas fa-industry"></i>
+                        </div>
+                    </div>
+                    <div class="card-value" style="color: var(--gray);">Vehicles</div>
+                    <div class="card-subtitle">Transportation Sector</div>
+                    <div class="card-change positive">
+                        <i class="fas fa-arrow-down"></i> 5% from last month
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Policy Effectiveness</div>
+                        <div class="card-icon policy">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                    </div>
+                    <div class="card-value" style="color: var(--secondary);">68%</div>
+                    <div class="card-subtitle">Current Policies</div>
+                    <div class="card-change positive">
+                        <i class="fas fa-arrow-up"></i> 7% improvement
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+
+       <!-- Health Recommendations by AQI Level -->
+    <section class="container">
+        <div class="health-recommendations">
+            <h2 class="section-title"><i class="fas fa-heartbeat"></i> Health Recommendations by AQI Level</h2>
+            
+            <div class="recommendation-levels">
+                <div class="level-card level-good">
+                    <h4>Good (0-50)</h4>
+                    <p>Air quality is satisfactory. No health precautions needed.</p>
+                </div>
+                <div class="level-card level-moderate">
+                    <h4>Moderate (51-100)</h4>
+                    <p>Acceptable air quality. Unusually sensitive people should consider reducing prolonged outdoor exertion.</p>
+                </div>
+                <div class="level-card level-poor">
+                    <h4>Poor (101-300+)</h4>
+                    <p>Health alert: Everyone may experience more serious health effects. Avoid outdoor activities.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Hyperlocal Air Quality Map -->
+    <section class="dashboard-overview">
+        <div class="container">
+            <h2 class="section-title"><i class="fas fa-map-marked-alt"></i> Hyperlocal Air Quality Map</h2>
+            <div class="main-card">
+                <div class="main-card-header">
+                    <h2 class="main-card-title">Real-time Pollution Levels Across Delhi-NCR</h2>
+                    <div class="time-filter">
+                        <select id="mapTimeFilter">
+                            <option>Live Data</option>
+                            <option>Last 6 Hours</option>
+                            <option>Last 24 Hours</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="map-container">
+                    <div id="airQualityMap"></div>
+                </div>
+                <div class="location-selector">
+                    <button class="location-btn active" data-location="all">All NCR</button>
+                    <button class="location-btn" data-location="delhi">Delhi</button>
+                    <button class="location-btn" data-location="gurugram">Gurugram</button>
+                    <button class="location-btn" data-location="noida">Noida</button>
+                    <button class="location-btn" data-location="faridabad">Faridabad</button>
+                    <button class="location-btn" data-location="ghaziabad">Ghaziabad</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Route Planner -->
+    <section class="dashboard-overview">
+        <div class="container">
+            <h2 class="section-title"><i class="fas fa-route"></i> Safe Route Planner</h2>
+            <div class="route-planner">
+                <h3>Find the Least Polluted Route</h3>
+                <p>Enter your start and destination to get a route with better air quality</p>
+                
+                <div class="route-form">
+                    <input type="text" id="startLocation" placeholder="Starting point (e.g., Connaught Place)">
+                    <input type="text" id="endLocation" placeholder="Destination (e.g., Gurugram)">
+                    <button class="btn" id="planRouteBtn">Plan Route</button>
+                </div>
+                
+                <div class="route-result" id="routeResult">
+                    <h4>Recommended Route</h4>
+                    <p><strong>Path:</strong> Connaught Place → India Gate → DND Flyway → Gurugram</p>
+                    <p><strong>Estimated AQI along route:</strong> 180-220 (Moderate)</p>
+                    <p><strong>Travel Time:</strong> 45 minutes</p>
+                    <p><strong>Air Quality Benefit:</strong> 25% better than fastest route</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+   
+   
+   <!-- Main Dashboard -->
+    <section class="dashboard-main">
+        <div class="container">
+            <div class="main-card">
+                <div class="main-card-header">
+                    <h2 class="main-card-title">Pollution Trends & Forecast</h2>
+                    <div class="time-filter">
+                        <select id="trendTimeFilter">
+                            <option>Last 7 days</option>
+                            <option>Last 30 days</option>
+                            <option>Last 6 months</option>
+                            <option>Last year</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="chart-container">
+                    <canvas id="pollutionChart"></canvas>
+                </div>
+                <div class="data-source">Data Source: CPCB & UPPCB</div>
+            </div>
+            
+            <div class="main-card">
+                <div class="main-card-header">
+                    <h2 class="main-card-title">Pollution Sources</h2>
+                    <div class="location-filter">
+                        <select id="sourceLocationFilter">
+                            <option>Delhi-NCR</option>
+                            <option>Delhi</option>
+                            <option>Gurugram</option>
+                            <option>Noida</option>
+                            <option>Faridabad</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="chart-container">
+                    <canvas id="sourcesChart"></canvas>
+                </div>
+                <div class="data-source">Data Source: CPCB & UPPCB</div>
+            </div>
+        </div>
+    </section>
+
+ <!-- Source Identification Section -->
+    <section id="source-identification" class="dashboard-overview">
+        <div class="container">
+            <h2 class="section-title"><i class="fas fa-search"></i> Source Identification</h2>
+            <div class="main-card">
+                <h3>Pollution Source Analysis</h3>
+                <p>Our AI-powered system identifies pollution sources using satellite data, ground sensors, and meteorological information.</p>
+                
+                <div class="overview-cards">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title">Industrial Sources</div>
+                            <div class="card-icon sources">
+                                <i class="fas fa-industry"></i>
+                            </div>
+                        </div>
+                        <div class="card-value" style="color: var(--warning);">28%</div>
+                        <div class="card-subtitle">Contribution to PM2.5</div>
+                        <div class="card-change negative">
+                            <i class="fas fa-arrow-up"></i> 3% from last quarter
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title">Vehicular Emissions</div>
+                            <div class="card-icon sources">
+                                <i class="fas fa-car"></i>
+                            </div>
+                        </div>
+                        <div class="card-value" style="color: var(--danger);">32%</div>
+                        <div class="card-subtitle">Contribution to PM2.5</div>
+                        <div class="card-change positive">
+                            <i class="fas fa-arrow-down"></i> 2% from last month
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title">Construction Dust</div>
+                            <div class="card-icon sources">
+                                <i class="fas fa-hard-hat"></i>
+                            </div>
+                        </div>
+                        <div class="card-value" style="color: var(--gray);">15%</div>
+                        <div class="card-subtitle">Contribution to PM10</div>
+                        <div class="card-change negative">
+                            <i class="fas fa-arrow-up"></i> 5% from last month
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="data-source">Data Source: CPCB & UPPCB</div>
+            </div>
+        </div>
+    </section>
+
+       <!-- Forecasting Section -->
+    <section id="forecasting" class="dashboard-overview">
+        <div class="container">
+            <h2 class="section-title"><i class="fas fa-chart-line"></i> Forecasting</h2>
+            <div class="main-card">
+                <h3>Air Quality Forecast for Delhi-NCR</h3>
+                <p>Our predictive models use machine learning to forecast air quality based on historical data, weather patterns, and emission sources.</p>
+                
+                <div class="overview-cards">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title">Tomorrow's AQI</div>
+                            <div class="card-icon forecast">
+                                <i class="fas fa-sun"></i>
+                            </div>
+                        </div>
+                        <div class="card-value" style="color: var(--danger);">355</div>
+                        <div class="card-subtitle">Very Poor</div>
+                        <div class="card-change negative">
+                            <i class="fas fa-arrow-up"></i> 4% from today
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title">3-Day Forecast</div>
+                            <div class="card-icon forecast">
+                                <i class="fas fa-calendar-alt"></i>
+                            </div>
+                        </div>
+                        <div class="card-value" style="color: var(--warning);">320-380</div>
+                        <div class="card-subtitle">Poor to Very Poor</div>
+                        <div class="card-change negative">
+                            <i class="fas fa-arrow-up"></i> Worsening trend
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title">Weekly Outlook</div>
+                            <div class="card-icon forecast">
+                                <i class="fas fa-chart-bar"></i>
+                            </div>
+                        </div>
+                        <div class="card-value" style="color: var(--danger);">Poor</div>
+                        <div class="card-subtitle">Stagnant winds expected</div>
+                        <div class="card-change negative">
+                            <i class="fas fa-exclamation-triangle"></i> No improvement
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="data-source">Data Source: CPCB & UPPCB, IMD</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Policy Analysis Section -->
+    <section id="policy-analysis" class="dashboard-overview">
+        <div class="container">
+            <h2 class="section-title"><i class="fas fa-balance-scale"></i> Policy Analysis</h2>
+            <div class="main-card">
+                <h3>Impact Assessment of Pollution Control Policies</h3>
+                <p>Analysis of how various government policies have affected air quality in Delhi-NCR.</p>
+                
+                <div class="overview-cards">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title">Odd-Even Scheme</div>
+                            <div class="card-icon policy">
+                                <i class="fas fa-car-side"></i>
+                            </div>
+                        </div>
+                        <div class="card-value" style="color: var(--secondary);">12%</div>
+                        <div class="card-subtitle">Reduction in PM2.5</div>
+                        <div class="card-change positive">
+                            <i class="fas fa-check-circle"></i> Effective
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title">GRAP Measures</div>
+                            <div class="card-icon policy">
+                                <i class="fas fa-traffic-light"></i>
+                            </div>
+                        </div>
+                        <div class="card-value" style="color: var(--warning);">8%</div>
+                        <div class="card-subtitle">Reduction in NOx</div>
+                        <div class="card-change positive">
+                            <i class="fas fa-check-circle"></i> Moderately effective
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title">Industrial Restrictions</div>
+                            <div class="card-icon policy">
+                                <i class="fas fa-industry"></i>
+                            </div>
+                        </div>
+                        <div class="card-value" style="color: var(--danger);">15%</div>
+                        <div class="card-subtitle">Reduction in SO2</div>
+                        <div class="card-change positive">
+                            <i class="fas fa-check-circle"></i> Highly effective
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="data-source">Data Source: CPCB & UPPCB, DPCC</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Data Sources Section -->
+    <section id="data-sources" class="dashboard-overview">
+        <div class="container">
+            <h2 class="section-title"><i class="fas fa-database"></i> Data Sources</h2>
+            <div class="main-card">
+                <h3>Official Data Sources</h3>
+                <p>Our dashboard integrates data from multiple official sources to provide accurate and comprehensive air quality information.</p>
+                
+                <div class="overview-cards">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title">CPCB</div>
+                            <div class="card-icon sources">
+                                <i class="fas fa-building"></i>
+                            </div>
+                        </div>
+                        <div class="card-value" style="color: var(--primary);">Central Pollution Control Board</div>
+                        <div class="card-subtitle">National air quality data</div>
+                        <div class="card-change">
+                            <i class="fas fa-sync-alt"></i> Updated hourly
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title">UPPCB</div>
+                            <div class="card-icon sources">
+                                <i class="fas fa-building"></i>
+                            </div>
+                        </div>
+                        <div class="card-value" style="color: var(--primary);">Uttar Pradesh Pollution Control Board</div>
+                        <div class="card-subtitle">NCR region data</div>
+                        <div class="card-change">
+                            <i class="fas fa-sync-alt"></i> Updated hourly
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title">DPCC</div>
+                            <div class="card-icon sources">
+                                <i class="fas fa-building"></i>
+                            </div>
+                        </div>
+                        <div class="card-value" style="color: var(--primary);">Delhi Pollution Control Committee</div>
+                        <div class="card-subtitle">Delhi-specific data</div>
+                        <div class="card-change">
+                            <i class="fas fa-sync-alt"></i> Updated hourly
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="data-source">All data is sourced directly from official government agencies</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Community Updates -->
+    <section class="dashboard-overview">
+        <div class="container">
+            <h2 class="section-title"><i class="fas fa-users"></i> Community Updates</h2>
+            <div class="community-updates">
+                <div class="update-item">
+                    <div class="update-avatar">RS</div>
+                    <div class="update-content">
+                        <h4>Construction dust control improved in South Delhi</h4>
+                        <p>New measures implemented at construction sites have reduced PM2.5 levels by 15% in the area.</p>
+                        <div class="update-meta">Posted by Raj Sharma • 2 hours ago</div>
+                    </div>
+                </div>
+                
+                <div class="update-item">
+                    <div class="update-avatar">PK</div>
+                    <div class="update-content">
+                        <h4>Industrial emissions spike detected in Faridabad</h4>
+                        <p>Unexpected increase in SO2 levels near Sector 24. Authorities have been alerted.</p>
+                        <div class="update-meta">Posted by Priya Kumar • 5 hours ago</div>
+                    </div>
+                </div>
+                
+                <div class="update-item">
+                    <div class="update-avatar">AM</div>
+                    <div class="update-content">
+                        <h4>Odd-Even policy showing positive impact</h4>
+                        <p>Vehicle emissions down 12% in first week of implementation compared to previous month.</p>
+                        <div class="update-meta">Posted by Amit Mishra • 1 day ago</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+      <!-- Prevention Tips -->
+    <section class="container">
+        <div class="prevention-tips">
+            <h2 class="section-title"><i class="fas fa-shield-alt"></i> Health Protection Tips</h2>
+            <p> here's how to protect yourself:</p>
+            
+            <div class="tips-grid">
+                <div class="tip-card">
+                    <h4><i class="fas fa-mask-face"></i> Wear a Mask</h4>
+                    <p>Use N95 or N99 masks when going outside. Regular cloth masks offer limited protection against fine particles.</p>
+                </div>
+                <div class="tip-card">
+                    <h4><i class="fas fa-home"></i> Use Air Purifiers</h4>
+                    <p>Keep windows closed and use air purifiers with HEPA filters indoors, especially in bedrooms.</p>
+                </div>
+                <div class="tip-card">
+                    <h4><i class="fas fa-walking"></i> Limit Outdoor Activities</h4>
+                    <p>Avoid strenuous exercise outdoors. Schedule outdoor activities for times when pollution levels are lower.</p>
+                </div>
+                <div class="tip-card">
+                    <h4><i class="fas fa-car"></i> Keep Car Windows Up</h4>
+                    <p>When driving, keep windows closed and use air recirculation mode in your vehicle.</p>
+                </div>
+                <div class="tip-card">
+                    <h4><i class="fas fa-leaf"></i> Add Indoor Plants</h4>
+                    <p>Certain plants like spider plants, peace lilies, and snake plants can help improve indoor air quality.</p>
+                </div>
+                <div class="tip-card">
+                    <h4><i class="fas fa-tint"></i> Use Humidifiers</h4>
+                    <p>Maintain optimal humidity levels (40-60%) to help reduce particulate matter in the air.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>About the Dashboard</h3>
+                    <p>This AI-powered dashboard provides real-time pollution monitoring, source identification, and policy impact analysis for Delhi-NCR region.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Data Methodology</a></li>
+                        <li><a href="#">API Access</a></li>
+                        <li><a href="#">Research Papers</a></li>
+                        <li><a href="#">Contribute Data</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact Us</h3>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-envelope"></i> contact@pollutiondashboard.in</li>
+                        <li><i class="fas fa-phone"></i> +91 11 1234 5678</li>
+                        <li><i class="fas fa-map-marker-alt"></i> Delhi Pollution Control Committee, New Delhi</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 Delhi-NCR Pollution Dashboard. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+<script src="./script.js"></script>
+</body>
+</html>

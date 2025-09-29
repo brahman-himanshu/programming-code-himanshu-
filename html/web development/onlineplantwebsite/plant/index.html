@@ -1,0 +1,1074 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GreenThumb Nursery - Buy Plants Online</title>
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        :root {
+            --primary: #2e7d32;
+            --primary-light: #4caf50;
+            --primary-dark: #1b5e20;
+            --secondary: #8bc34a;
+            --accent: #ff9800;
+            --text: #333;
+            --text-light: #666;
+            --background: #f9f9f9;
+            --white: #ffffff;
+            --gray: #e0e0e0;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        body {
+            background-color: var(--background);
+            color: var(--text);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: var(--white);
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+        }
+        
+        .logo i {
+            margin-right: 10px;
+            font-size: 28px;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 25px;
+        }
+        
+        nav ul li a {
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        nav ul li a:hover {
+            color: var(--primary);
+        }
+        
+        .header-actions {
+            display: flex;
+            align-items: center;
+        }
+        
+        .search-bar {
+            position: relative;
+            margin-right: 20px;
+        }
+        
+        .search-bar input {
+            padding: 8px 15px;
+            border: 1px solid var(--gray);
+            border-radius: 20px;
+            width: 200px;
+            font-size: 14px;
+        }
+        
+        .search-bar i {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-light);
+        }
+        
+        .cart-icon {
+            position: relative;
+            margin-right: 20px;
+            font-size: 20px;
+            color: var(--text);
+            cursor: pointer;
+        }
+        
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background-color: var(--accent);
+            color: white;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .auth-buttons button {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+            margin-left: 10px;
+        }
+        
+        .login-btn {
+            background-color: transparent;
+            color: var(--primary);
+            border: 1px solid var(--primary) !important;
+        }
+        
+        .signup-btn {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        /* Banner Section */
+        .banner {
+            background: linear-gradient(rgba(46, 125, 50, 0.8), rgba(46, 125, 50, 0.8)), url('https://images.unsplash.com/photo-1416879595882-3373a0480b5b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+        }
+        
+        .banner h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+        
+        .banner p {
+            font-size: 20px;
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        
+        .cta-buttons button {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .shop-now {
+            background-color: var(--accent);
+            color: white;
+        }
+        
+        .explore-plants {
+            background-color: transparent;
+            color: white;
+            border: 2px solid white !important;
+        }
+        
+        /* Section Styles */
+        section {
+            padding: 60px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .section-title h2 {
+            font-size: 32px;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+        
+        .section-title p {
+            color: var(--text-light);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        /* Categories */
+        .categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+        
+        .category-card {
+            background-color: var(--white);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s;
+            cursor: pointer;
+        }
+        
+        .category-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .category-img {
+            height: 150px;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .category-content {
+            padding: 15px;
+            text-align: center;
+        }
+        
+        .category-content h3 {
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+        
+        /* Products */
+        .products {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        
+        .product-card {
+            background-color: var(--white);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .product-img {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .product-content {
+            padding: 15px;
+        }
+        
+        .product-content h3 {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+        
+        .product-price {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+        
+        .add-to-cart {
+            width: 100%;
+            padding: 10px;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background-color 0.3s;
+        }
+        
+        .add-to-cart:hover {
+            background-color: var(--primary-dark);
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--primary-dark);
+            color: white;
+            padding: 60px 0 20px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-column h3 {
+            font-size: 20px;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 50px;
+            height: 2px;
+            background-color: var(--secondary);
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-column ul li a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-column ul li a:hover {
+            color: white;
+        }
+        
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-icons a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+        
+        .social-icons a:hover {
+            background-color: var(--primary-light);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 14px;
+            color: #ccc;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                padding: 15px 0;
+            }
+            
+            nav ul {
+                margin: 15px 0;
+            }
+            
+            .search-bar {
+                margin: 10px 0;
+            }
+            
+            .search-bar input {
+                width: 100%;
+            }
+            
+            .banner h1 {
+                font-size: 36px;
+            }
+            
+            .banner p {
+                font-size: 16px;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .cta-buttons button {
+                width: 80%;
+                margin-bottom: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        // Sample data for products and categories
+        const categories = [
+            { id: 1, name: 'Indoor Plants', image: 'https://images.unsplash.com/photo-1485955900006-10f4d324d411?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80' },
+            { id: 2, name: 'Outdoor Plants', image: 'https://images.unsplash.com/photo-1463320726281-696a485928c7?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80' },
+            { id: 3, name: 'Medicinal Plants', image: 'https://images.unsplash.com/photo-1594736797933-d0b4ec4d7d72?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80' },
+            { id: 4, name: 'Flowering Plants', image: 'https://images.unsplash.com/photo-1491147334573-44cbb4602074?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80' },
+            { id: 5, name: 'Succulents', image: 'https://images.unsplash.com/photo-1518531933037-8b63f3db7c38?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80' }
+        ];
+
+        const products = [
+            { id: 1, name: 'Snake Plant', price: 24.99, category: 'Indoor', image: 'https://images.unsplash.com/photo-1593489060062-2c6c0e389e4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80' },
+            { id: 2, name: 'Peace Lily', price: 19.99, category: 'Indoor', image: 'https://images.unsplash.com/photo-1598880940086-4fc0d1ba0355?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80' },
+            { id: 3, name: 'Fiddle Leaf Fig', price: 34.99, category: 'Indoor', image: 'https://images.unsplash.com/photo-1598880791506-c1bceec0f5e7?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80' },
+            { id: 4, name: 'Rose Bush', price: 29.99, category: 'Outdoor', image: 'https://images.unsplash.com/photo-1519689373023-2bea8d5e73f6?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80' },
+            { id: 5, name: 'Lavender', price: 14.99, category: 'Outdoor', image: 'https://images.unsplash.com/photo-1597848212624-e6d4bd40d90c?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80' },
+            { id: 6, name: 'Aloe Vera', price: 12.99, category: 'Medicinal', image: 'https://images.unsplash.com/photo-1594736797933-d0b4ec4d7d72?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80' },
+            { id: 7, name: 'Orchid', price: 32.99, category: 'Flowering', image: 'https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80' },
+            { id: 8, name: 'Echeveria', price: 8.99, category: 'Succulents', image: 'https://images.unsplash.com/photo-1518531933037-8b63f3db7c38?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80' }
+        ];
+
+        // Main App Component
+        function App() {
+            const [currentPage, setCurrentPage] = React.useState('home');
+            const [cartItems, setCartItems] = React.useState([]);
+            const [searchQuery, setSearchQuery] = React.useState('');
+            const [filteredProducts, setFilteredProducts] = React.useState(products);
+            const [selectedCategory, setSelectedCategory] = React.useState('all');
+
+            // Filter products based on search and category
+            React.useEffect(() => {
+                let result = products;
+                
+                if (searchQuery) {
+                    result = result.filter(product => 
+                        product.name.toLowerCase().includes(searchQuery.toLowerCase())
+                    );
+                }
+                
+                if (selectedCategory !== 'all') {
+                    result = result.filter(product => 
+                        product.category === selectedCategory
+                    );
+                }
+                
+                setFilteredProducts(result);
+            }, [searchQuery, selectedCategory]);
+
+            // Add to cart function
+            const addToCart = (product) => {
+                const existingItem = cartItems.find(item => item.id === product.id);
+                
+                if (existingItem) {
+                    setCartItems(cartItems.map(item => 
+                        item.id === product.id 
+                            ? { ...item, quantity: item.quantity + 1 } 
+                            : item
+                    ));
+                } else {
+                    setCartItems([...cartItems, { ...product, quantity: 1 }]);
+                }
+                
+                alert(`${product.name} added to cart!`);
+            };
+
+            // Remove from cart function
+            const removeFromCart = (productId) => {
+                setCartItems(cartItems.filter(item => item.id !== productId));
+            };
+
+            // Update quantity function
+            const updateQuantity = (productId, newQuantity) => {
+                if (newQuantity < 1) return;
+                
+                setCartItems(cartItems.map(item => 
+                    item.id === productId 
+                        ? { ...item, quantity: newQuantity } 
+                        : item
+                ));
+            };
+
+            // Calculate total price
+            const getTotalPrice = () => {
+                return cartItems.reduce((total, item) => total + (item.price * item.quantity), 0).toFixed(2);
+            };
+
+            // Render different pages based on currentPage state
+            const renderPage = () => {
+                switch(currentPage) {
+                    case 'home':
+                        return <HomePage 
+                            categories={categories} 
+                            products={filteredProducts} 
+                            addToCart={addToCart}
+                            setSelectedCategory={setSelectedCategory}
+                        />;
+                    case 'shop':
+                        return <ShopPage 
+                            products={filteredProducts} 
+                            addToCart={addToCart}
+                            searchQuery={searchQuery}
+                            setSearchQuery={setSearchQuery}
+                            selectedCategory={selectedCategory}
+                            setSelectedCategory={setSelectedCategory}
+                            categories={categories}
+                        />;
+                    case 'cart':
+                        return <CartPage 
+                            cartItems={cartItems} 
+                            removeFromCart={removeFromCart}
+                            updateQuantity={updateQuantity}
+                            getTotalPrice={getTotalPrice}
+                            setCurrentPage={setCurrentPage}
+                        />;
+                    case 'about':
+                        return <AboutPage />;
+                    default:
+                        return <HomePage 
+                            categories={categories} 
+                            products={filteredProducts} 
+                            addToCart={addToCart}
+                            setSelectedCategory={setSelectedCategory}
+                        />;
+                }
+            };
+
+            return (
+                <div>
+                    <Header 
+                        currentPage={currentPage} 
+                        setCurrentPage={setCurrentPage}
+                        cartItems={cartItems}
+                        searchQuery={searchQuery}
+                        setSearchQuery={setSearchQuery}
+                        setSelectedCategory={setSelectedCategory}
+                    />
+                    {renderPage()}
+                    <Footer setCurrentPage={setCurrentPage} />
+                </div>
+            );
+        }
+
+        // Header Component
+        function Header({ currentPage, setCurrentPage, cartItems, searchQuery, setSearchQuery, setSelectedCategory }) {
+            const cartItemCount = cartItems.reduce((count, item) => count + item.quantity, 0);
+
+            const handleLogoClick = () => {
+                setCurrentPage('home');
+                setSelectedCategory('all');
+                setSearchQuery('');
+            };
+
+            return (
+                <header>
+                    <div className="container">
+                        <div className="header-container">
+                            <a href="#" className="logo" onClick={(e) => { e.preventDefault(); handleLogoClick(); }}>
+                                <i className="fas fa-leaf"></i>
+                                Prince Nursery
+                            </a>
+                            
+                            <nav>
+                                <ul>
+                                    <li><a href="#" onClick={(e) => { e.preventDefault(); setCurrentPage('home'); }} className={currentPage === 'home' ? 'active' : ''}>Home</a></li>
+                                    <li><a href="#" onClick={(e) => { e.preventDefault(); setCurrentPage('shop'); }} className={currentPage === 'shop' ? 'active' : ''}>Shop</a></li>
+                                    <li><a href="#" onClick={(e) => { e.preventDefault(); setCurrentPage('about'); }} className={currentPage === 'about' ? 'active' : ''}>About</a></li>
+                                    <li><a href="#">Contact</a></li>
+                                </ul>
+                            </nav>
+                            
+                            <div className="header-actions">
+                                <div className="search-bar">
+                                    <input 
+                                        type="text" 
+                                        placeholder="Search plants..." 
+                                        value={searchQuery}
+                                        onChange={(e) => setSearchQuery(e.target.value)}
+                                    />
+                                    <i className="fas fa-search"></i>
+                                </div>
+                                
+                                <div className="cart-icon" onClick={() => setCurrentPage('cart')}>
+                                    <i className="fas fa-shopping-cart"></i>
+                                    {cartItemCount > 0 && <span className="cart-count">{cartItemCount}</span>}
+                                </div>
+                                
+                                <div className="auth-buttons">
+                                    <button className="login-btn">Login</button>
+                                    <button className="signup-btn">Sign Up</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </header>
+            );
+        }
+
+        // Home Page Component
+        function HomePage({ categories, products, addToCart, setSelectedCategory }) {
+            const featuredProducts = products.slice(0, 4);
+
+            const handleCategoryClick = (categoryName) => {
+                setSelectedCategory(categoryName);
+                // In a real app, we would navigate to the shop page
+                // For this demo, we'll just filter the products on the home page
+            };
+
+            const handleShopNow = () => {
+                setSelectedCategory('all');
+                // In a real app, we would navigate to the shop page
+            };
+
+            return (
+                <div>
+                    {/* Banner Section */}
+                    <section className="banner">
+                        <div className="container">
+                            <h1>Bring Nature Into Your Home</h1>
+                            <p>Discover our wide variety of indoor and outdoor plants to create your own green oasis. Quality plants delivered to your doorstep.</p>
+                            <div className="cta-buttons">
+                                <button className="shop-now" onClick={handleShopNow}>Shop Now</button>
+                                <button className="explore-plants">Explore Plants</button>
+                            </div>
+                        </div>
+                    </section>
+
+                    {/* Categories Section */}
+                    <section>
+                        <div className="container">
+                            <div className="section-title">
+                                <h2>Plant Categories</h2>
+                                <p>Browse our collection by category to find the perfect plants for your space</p>
+                            </div>
+                            
+                            <div className="categories">
+                                {categories.map(category => (
+                                    <div key={category.id} className="category-card" onClick={() => handleCategoryClick(category.name.split(' ')[0])}>
+                                        <div className="category-img" style={{backgroundImage: `url(${category.image})`}}></div>
+                                        <div className="category-content">
+                                            <h3>{category.name}</h3>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    </section>
+
+                    {/* Featured Products Section */}
+                    <section style={{backgroundColor: '#f5f5f5'}}>
+                        <div className="container">
+                            <div className="section-title">
+                                <h2>Featured Plants</h2>
+                                <p>Check out our most popular plants loved by our customers</p>
+                            </div>
+                            
+                            <div className="products">
+                                {featuredProducts.map(product => (
+                                    <div key={product.id} className="product-card">
+                                        <div className="product-img" style={{backgroundImage: `url(${product.image})`}}></div>
+                                        <div className="product-content">
+                                            <h3>{product.name}</h3>
+                                            <div className="product-price">${product.price}</div>
+                                            <button className="add-to-cart" onClick={() => addToCart(product)}>Add to Cart</button>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            );
+        }
+
+        // Shop Page Component
+        function ShopPage({ products, addToCart, searchQuery, setSearchQuery, selectedCategory, setSelectedCategory, categories }) {
+            return (
+                <section>
+                    <div className="container">
+                        <div className="section-title">
+                            <h2>Our Plant Collection</h2>
+                            <p>Find the perfect plants for your home or garden</p>
+                        </div>
+                        
+                        {/* Filters and Search */}
+                        <div style={{display: 'flex', justifyContent: 'space-between', marginBottom: '30px', flexWrap: 'wrap', gap: '20px'}}>
+                            <div className="search-bar" style={{margin: 0}}>
+                                <input 
+                                    type="text" 
+                                    placeholder="Search plants..." 
+                                    value={searchQuery}
+                                    onChange={(e) => setSearchQuery(e.target.value)}
+                                    style={{width: '300px'}}
+                                />
+                                <i className="fas fa-search"></i>
+                            </div>
+                            
+                            <div style={{display: 'flex', gap: '15px'}}>
+                                <select 
+                                    value={selectedCategory} 
+                                    onChange={(e) => setSelectedCategory(e.target.value)}
+                                    style={{padding: '8px 15px', border: '1px solid #ddd', borderRadius: '4px'}}
+                                >
+                                    <option value="all">All Categories</option>
+                                    {categories.map(category => (
+                                        <option key={category.id} value={category.name.split(' ')[0]}>{category.name}</option>
+                                    ))}
+                                </select>
+                                
+                                <select style={{padding: '8px 15px', border: '1px solid #ddd', borderRadius: '4px'}}>
+                                    <option>Price: Low to High</option>
+                                    <option>Price: High to Low</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        {/* Products Grid */}
+                        <div className="products">
+                            {products.length > 0 ? (
+                                products.map(product => (
+                                    <div key={product.id} className="product-card">
+                                        <div className="product-img" style={{backgroundImage: `url(${product.image})`}}></div>
+                                        <div className="product-content">
+                                            <h3>{product.name}</h3>
+                                            <div className="product-category" style={{color: '#666', fontSize: '14px', marginBottom: '5px'}}>{product.category} Plants</div>
+                                            <div className="product-price">${product.price}</div>
+                                            <button className="add-to-cart" onClick={() => addToCart(product)}>Add to Cart</button>
+                                        </div>
+                                    </div>
+                                ))
+                            ) : (
+                                <div style={{gridColumn: '1 / -1', textAlign: 'center', padding: '40px'}}>
+                                    <h3>No plants found matching your criteria</h3>
+                                    <p>Try adjusting your search or filters</p>
+                                </div>
+                            )}
+                        </div>
+                    </div>
+                </section>
+            );
+        }
+
+        // Cart Page Component
+        function CartPage({ cartItems, removeFromCart, updateQuantity, getTotalPrice, setCurrentPage }) {
+            return (
+                <section>
+                    <div className="container">
+                        <div className="section-title">
+                            <h2>Your Shopping Cart</h2>
+                            <p>Review your items before checkout</p>
+                        </div>
+                        
+                        {cartItems.length > 0 ? (
+                            <div style={{display: 'grid', gridTemplateColumns: '2fr 1fr', gap: '40px'}}>
+                                {/* Cart Items */}
+                                <div>
+                                    {cartItems.map(item => (
+                                        <div key={item.id} style={{
+                                            display: 'flex', 
+                                            backgroundColor: 'white', 
+                                            borderRadius: '8px', 
+                                            padding: '20px', 
+                                            marginBottom: '20px',
+                                            boxShadow: '0 2px 5px rgba(0,0,0,0.1)'
+                                        }}>
+                                            <div style={{
+                                                width: '100px', 
+                                                height: '100px', 
+                                                backgroundImage: `url(${item.image})`,
+                                                backgroundSize: 'cover',
+                                                backgroundPosition: 'center',
+                                                borderRadius: '4px',
+                                                marginRight: '20px'
+                                            }}></div>
+                                            
+                                            <div style={{flex: 1}}>
+                                                <h3 style={{marginBottom: '10px'}}>{item.name}</h3>
+                                                <div style={{color: '#2e7d32', fontSize: '18px', fontWeight: 'bold', marginBottom: '15px'}}>${item.price}</div>
+                                                
+                                                <div style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
+                                                    <div style={{display: 'flex', alignItems: 'center'}}>
+                                                        <button 
+                                                            onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                                                            style={{
+                                                                width: '30px', 
+                                                                height: '30px', 
+                                                                border: '1px solid #ddd', 
+                                                                backgroundColor: '#f5f5f5',
+                                                                cursor: 'pointer'
+                                                            }}
+                                                        >-</button>
+                                                        <span style={{margin: '0 15px', fontSize: '18px'}}>{item.quantity}</span>
+                                                        <button 
+                                                            onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                                                            style={{
+                                                                width: '30px', 
+                                                                height: '30px', 
+                                                                border: '1px solid #ddd', 
+                                                                backgroundColor: '#f5f5f5',
+                                                                cursor: 'pointer'
+                                                            }}
+                                                        >+</button>
+                                                    </div>
+                                                    
+                                                    <button 
+                                                        onClick={() => removeFromCart(item.id)}
+                                                        style={{
+                                                            backgroundColor: 'transparent',
+                                                            border: 'none',
+                                                            color: '#ff6b6b',
+                                                            cursor: 'pointer'
+                                                        }}
+                                                    >
+                                                        <i className="fas fa-trash"></i> Remove
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                                
+                                {/* Order Summary */}
+                                <div style={{
+                                    backgroundColor: 'white', 
+                                    borderRadius: '8px', 
+                                    padding: '25px',
+                                    boxShadow: '0 2px 5px rgba(0,0,0,0.1)',
+                                    height: 'fit-content'
+                                }}>
+                                    <h3 style={{marginBottom: '20px', paddingBottom: '15px', borderBottom: '1px solid #eee'}}>Order Summary</h3>
+                                    
+                                    <div style={{display: 'flex', justifyContent: 'space-between', marginBottom: '15px'}}>
+                                        <span>Subtotal</span>
+                                        <span>${getTotalPrice()}</span>
+                                    </div>
+                                    
+                                    <div style={{display: 'flex', justifyContent: 'space-between', marginBottom: '15px'}}>
+                                        <span>Shipping</span>
+                                        <span>$5.99</span>
+                                    </div>
+                                    
+                                    <div style={{display: 'flex', justifyContent: 'space-between', marginBottom: '20px', fontWeight: 'bold', fontSize: '18px'}}>
+                                        <span>Total</span>
+                                        <span>${(parseFloat(getTotalPrice()) + 5.99).toFixed(2)}</span>
+                                    </div>
+                                    
+                                    <button 
+                                        onClick={() => setCurrentPage('checkout')}
+                                        style={{
+                                            width: '100%',
+                                            padding: '12px',
+                                            backgroundColor: '#2e7d32',
+                                            color: 'white',
+                                            border: 'none',
+                                            borderRadius: '4px',
+                                            fontSize: '16px',
+                                            fontWeight: 'bold',
+                                            cursor: 'pointer',
+                                            marginBottom: '15px'
+                                        }}
+                                    >
+                                        Proceed to Checkout
+                                    </button>
+                                    
+                                    <button 
+                                        onClick={() => setCurrentPage('shop')}
+                                        style={{
+                                            width: '100%',
+                                            padding: '12px',
+                                            backgroundColor: 'transparent',
+                                            color: '#2e7d32',
+                                            border: '1px solid #2e7d32',
+                                            borderRadius: '4px',
+                                            fontSize: '16px',
+                                            cursor: 'pointer'
+                                        }}
+                                    >
+                                        Continue Shopping
+                                    </button>
+                                </div>
+                            </div>
+                        ) : (
+                            <div style={{textAlign: 'center', padding: '60px 0'}}>
+                                <i className="fas fa-shopping-cart" style={{fontSize: '60px', color: '#ddd', marginBottom: '20px'}}></i>
+                                <h3>Your cart is empty</h3>
+                                <p>Add some plants to your cart to get started</p>
+                                <button 
+                                    onClick={() => setCurrentPage('shop')}
+                                    style={{
+                                        padding: '12px 30px',
+                                        backgroundColor: '#2e7d32',
+                                        color: 'white',
+                                        border: 'none',
+                                        borderRadius: '4px',
+                                        fontSize: '16px',
+                                        fontWeight: 'bold',
+                                        cursor: 'pointer',
+                                        marginTop: '20px'
+                                    }}
+                                >
+                                    Start Shopping
+                                </button>
+                            </div>
+                        )}
+                    </div>
+                </section>
+            );
+        }
+
+        // About Page Component
+        function AboutPage() {
+            return (
+                <section>
+                    <div className="container">
+                        <div className="section-title">
+                            <h2>About GreenThumb Nursery</h2>
+                            <p>Our story and commitment to bringing nature closer to you</p>
+                        </div>
+                        
+                        <div style={{display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '40px', alignItems: 'center'}}>
+                            <div>
+                                <h3 style={{marginBottom: '20px', color: '#2e7d32'}}>Our Story</h3>
+                                <p style={{marginBottom: '15px'}}>GreenThumb Nursery was founded in 2010 with a simple mission: to make gardening accessible to everyone, regardless of their experience level or living situation.</p>
+                                <p style={{marginBottom: '15px'}}>What started as a small family-owned nursery has grown into a trusted online destination for plant lovers across the country.</p>
+                                <p>We believe that plants have the power to transform spaces and improve well-being, and we're passionate about helping you discover the joy of plant parenthood.</p>
+                            </div>
+                            
+                            <div style={{
+                                height: '300px', 
+                                backgroundImage: 'url(https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80)',
+                                backgroundSize: 'cover',
+                                backgroundPosition: 'center',
+                                borderRadius: '8px'
+                            }}></div>
+                        </div>
+                        
+                        <div style={{marginTop: '60px'}}>
+                            <h3 style={{textAlign: 'center', marginBottom: '30px', color: '#2e7d32'}}>Why Choose GreenThumb?</h3>
+                            
+                            <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '30px'}}>
+                                <div style={{textAlign: 'center', padding: '30px'}}>
+                                    <i className="fas fa-seedling" style={{fontSize: '40px', color: '#2e7d32', marginBottom: '20px'}}></i>
+                                    <h4>Quality Plants</h4>
+                                    <p>All our plants are carefully selected and nurtured to ensure they arrive at your doorstep healthy and thriving.</p>
+                                </div>
+                                
+                                <div style={{textAlign: 'center', padding: '30px'}}>
+                                    <i className="fas fa-shipping-fast" style={{fontSize: '40px', color: '#2e7d32', marginBottom: '20px'}}></i>
+                                    <h4>Fast Delivery</h4>
+                                    <p>We package plants with care and ship quickly to ensure they arrive in perfect condition.</p>
+                                </div>
+                                
+                                <div style={{textAlign: 'center', padding: '30px'}}>
+                                    <i className="fas fa-headset" style={{fontSize: '40px', color: '#2e7d32', marginBottom: '20px'}}></i>
+                                    <h4>Expert Support</h4>
+                                    <p>Our team of plant experts is here to help with any questions about plant care and selection.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            );
+        }
+
+        // Footer Component
+        function Footer({ setCurrentPage }) {
+            return (
+                <footer>
+                    <div className="container">
+                        <div className="footer-content">
+                            <div className="footer-column">
+                                <h3>GreenThumb Nursery</h3>
+                                <p>Bringing nature to your doorstep since 2010. We're passionate about plants and helping you create your own green space.</p>
+                                <div className="social-icons">
+                                    <a href="#"><i className="fab fa-facebook-f"></i></a>
+                                    <a href="#"><i className="fab fa-instagram"></i></a>
+                                    <a href="#"><i className="fab fa-twitter"></i></a>
+                                    <a href="#"><i className="fab fa-pinterest"></i></a>
+                                </div>
+                            </div>
+                            
+                            <div className="footer-column">
+                                <h3>Quick Links</h3>
+                                <ul>
+                                    <li><a href="#" onClick={(e) => { e.preventDefault(); setCurrentPage('home'); }}>Home</a></li>
+                                    <li><a href="#" onClick={(e) => { e.preventDefault(); setCurrentPage('shop'); }}>Shop</a></li>
+                                    <li><a href="#" onClick={(e) => { e.preventDefault(); setCurrentPage('about'); }}>About Us</a></li>
+                                    <li><a href="#">Contact</a></li>
+                                    <li><a href="#">FAQs</a></li>
+                                </ul>
+                            </div>
+                            
+                            <div className="footer-column">
+                                <h3>Customer Service</h3>
+                                <ul>
+                                    <li><a href="#">Shipping Policy</a></li>
+                                    <li><a href="#">Return Policy</a></li>
+                                    <li><a href="#">Plant Care Guides</a></li>
+                                    <li><a href="#">Privacy Policy</a></li>
+                                    <li><a href="#">Terms of Service</a></li>
+                                </ul>
+                            </div>
+                            
+                            <div className="footer-column">
+                                <h3>Contact Info</h3>
+                                <ul>
+                                    <li><i className="fas fa-map-marker-alt"></i> 123 Garden St, Plantville, PV 12345</li>
+                                    <li><i className="fas fa-phone"></i> (555) 123-4567</li>
+                                    <li><i className="fas fa-envelope"></i> info@greenthumb.com</li>
+                                    <li><i className="fas fa-clock"></i> Mon-Fri: 9am-6pm, Sat: 10am-4pm</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div className="copyright">
+                            <p>&copy; 2023 GreenThumb Nursery. All rights reserved.</p>
+                        </div>
+                    </div>
+                </footer>
+            );
+        }
+
+        // Render the App
+        ReactDOM.render(<App />, document.getElementById('root'));
+    </script>
+</body>
+</html>
