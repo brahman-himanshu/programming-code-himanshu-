@@ -1,0 +1,168 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f4f7;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+}
+
+.chat-container {
+    width: 100%;
+    max-width: 450px;
+    height: 90vh;
+    background-color: #fff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+/* --- Header & Role Toggle --- */
+.chat-header {
+    padding: 15px;
+    background-color: #2e7d32; /* Deep Green */
+    color: white;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.role-toggle {
+    display: flex;
+    margin-top: 10px;
+    background-color: #4caf50; /* Lighter Green */
+    border-radius: 20px;
+    padding: 2px;
+}
+
+.toggle-btn {
+    border: none;
+    padding: 8px 15px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    border-radius: 20px;
+    background-color: transparent;
+    color: #e8f5e9;
+    transition: all 0.2s;
+}
+
+.toggle-btn.selected {
+    background-color: #81c784; /* Highlight Green */
+    color: #2e7d32; /* Dark Text */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* --- Messages Area --- */
+.chat-messages {
+    flex-grow: 1;
+    padding: 15px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column-reverse; /* Reverses order for bottom-up stacking */
+}
+
+/* Style for individual message bubbles */
+.message {
+    max-width: 80%;
+    padding: 10px 15px;
+    border-radius: 18px;
+    margin-bottom: 10px;
+    line-height: 1.4;
+}
+
+.user-message {
+    align-self: flex-end;
+    background-color: #c8e6c9; /* Light Mint Green */
+    color: #2e7d32;
+    border-bottom-right-radius: 2px;
+}
+
+.bot-message {
+    align-self: flex-start;
+    background-color: #e0e0e0; /* Grey */
+    color: #333;
+    border-bottom-left-radius: 2px;
+}
+
+/* --- Quick Actions --- */
+.quick-actions {
+    display: flex;
+    padding: 10px 15px;
+    overflow-x: auto;
+    white-space: nowrap;
+    border-top: 1px solid #eee;
+    background-color: #fff;
+}
+
+.quick-action-btn {
+    flex-shrink: 0;
+    padding: 8px 15px;
+    margin-right: 8px;
+    background-color: #f1f8e9; /* Very Light Green */
+    color: #388e3c;
+    border: 1px solid #a5d6a7;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.2s;
+}
+
+.quick-action-btn:hover {
+    background-color: #e8f5e9;
+}
+
+/* --- Input Area --- */
+.chat-input {
+    display: flex;
+    align-items: center;
+    padding: 10px 15px;
+    border-top: 1px solid #ddd;
+    background-color: #fff;
+}
+
+#user-input {
+    flex-grow: 1;
+    padding: 12px;
+    border: none;
+    border-radius: 25px;
+    background-color: #f0f4f7;
+    margin: 0 8px;
+    font-size: 16px;
+    outline: none;
+}
+
+.input-icon {
+    background: none;
+    border: none;
+    color: #388e3c; /* Green Icon */
+    font-size: 18px;
+    cursor: pointer;
+    padding: 8px;
+}
+
+.send-btn {
+    background-color: #4caf50;
+    color: white;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s;
+}
+
+.send-btn:hover {
+    background-color: #388e3c;
+}
+/* Typing indicator styles */
+.typing-indicator {
+    padding: 10px 15px;
+    font-style: italic;
+    color: #666;
+}
