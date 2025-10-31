@@ -14,24 +14,29 @@
 </head>
 <body>
     <!-- Header -->
-    <header>
-        <div class="container">
-            <div class="header-content">
-                <div class="logo">
-                    <i class="fas fa-wind"></i>
-                    <h1>Delhi-NCR Pollution Dashboard</h1>
-                </div>
-                <nav class="nav-links">
-                    <a href="#" class="active">Dashboard</a>
-                    <a href="#source-identification">Source Identification</a>
-                    <a href="#forecasting">Forecasting</a>
-                    <a href="#policy-analysis">Policy Analysis</a>
-                    <a href="#data-sources">Data Sources</a>
-                </nav>
-            </div>
-        </div>
-    </header>
-    
+<header>
+  <div class="container">
+    <div class="header-content">
+      <div class="logo">
+        <i class="fas fa-wind"></i>
+        <h1>Delhi-NCR Pollution Dashboard</h1>
+      </div>
+
+      <!-- Hamburger Icon -->
+      <div class="hamburger" id="hamburger">
+        <i class="fas fa-bars"></i>
+      </div>
+
+      <nav class="nav-links" id="nav-links">
+        <a href="#" class="active">Dashboard</a>
+        <a href="#source-identification">Source Identification</a>
+        <a href="#forecasting">Forecasting</a>
+        <a href="#policy-analysis">Policy Analysis</a>
+        <a href="#data-sources">Data Sources</a>
+      </nav>
+    </div>
+  </div>
+</header>
    
     <!-- Location Tracker -->
     <section class="container">
@@ -43,10 +48,15 @@
                 <div class="location-details">
                     <h3>Your Current Location</h3>
                     <div>
-                        <span class="location-aqi aqi-poor" id="currentAqi">342</span>
-                        <span id="locationName">Connaught Place, New Delhi</span>
+                  
+                        <span id="locationName">
+  <div class="card">
+    
+    <p><b>Address:</b> <span id="address" class="loading">Fetching...</span></p>
+  </div>
+</span>
                     </div>
-                    <p id="aqiCategory">Air Quality: Very Poor</p>
+                   
                 </div>
             </div>
             <div class="location-actions">

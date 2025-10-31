@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Law Lens — Demo</title>
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <header>
+    <div class="logo">⚖️ <span>Law Lens</span></div>
+    <div class="tag">Simplifying law for everyone</div>
+  </header>
+
+  <main>
+    <section class="left">
+      <div class="card">
+        <h3>Ask a legal question</h3>
+        <div id="chat" class="chat"></div>
+
+        <div class="controls">
+          <button id="micBtn" title="Speak">🎙️</button>
+          <input id="userInput" type="text" placeholder="Type your question (eg: What is Section 420?)" />
+          <button id="sendBtn">Send</button>
+        </div>
+      </div>
+
+      <div class="card small">
+        <h4>Section Simplifier</h4>
+        <input id="sectionInput" placeholder="Enter IPC section number e.g., 420" />
+        <button id="simplifyBtn">Simplify</button>
+        <div id="simplifyResult" class="result"></div>
+      </div>
+    </section>
+
+    <aside class="right">
+      <div class="card">
+        <h4>Quick Shortcuts</h4>
+        <button class="quick" data-q="What does Section 420 IPC mean?">Section 420</button>
+        <button class="quick" data-q="What are my tenant rights if landlord doesn't return deposit?">Tenant Rights</button>
+        <button class="quick" data-q="How to file an FIR?">How to file FIR</button>
+      </div>
+
+      <div class="card">
+        <h4>Disclaimer</h4>
+        <p>Law Lens is an educational demo. Not a substitute for legal advice.</p>
+      </div>
+    </aside>
+  </main>
+
+  <script src="./script.js"></script>
+</body>
+</html>

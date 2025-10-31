@@ -7,6 +7,8 @@
                 attribution: '&copy; OpenStreetMap contributors'
             }).addTo(map);
             
+
+            
             // Add markers for different locations in Delhi-NCR
             const locations = [
                 { name: "Delhi Center", coords: [28.6139, 77.2090], aqi: 342, pollutant: "PM2.5" },
@@ -207,3 +209,44 @@
             simulateLocationDetection();
             initSliders();
         });
+
+
+         if (navigator.geolocation) {
+      navigator.geolocation.watchPosition(success, error, {
+        enableHighAccuracy: true,
+        maximumAge: 0,
+        timeout: 10000
+      });
+    } else {
+      document.getElementById("address").textContent = "Geolocation not supported.";
+    }
+
+    function success(position) {
+      const lat = position.coords.latitude;
+      const lon = position.coords.longitude;
+
+      // Fetch readable address from coordinates
+      fetch(`https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lon}&format=json`)
+        .then(res => res.json())
+        .then(data => {
+          const address = data.display_name || "Unable to fetch address";
+          document.getElementById("address").textContent = address;
+          document.getElementById("address").classList.remove("loading");
+        })
+        .catch(() => {
+          document.getElementById("address").textContent = "Error fetching address";
+        });
+    }
+
+    function error(err) {
+      document.getElementById("address").textContent = "Error: " + err.message;
+    }
+
+
+     const hamburger = document.getElementById("hamburger");
+  const navLinks = document.getElementById("nav-links");
+
+  hamburger.addEventListener("click", () => {
+    navLinks.classList.toggle("active");
+    hamburger.classList.toggle("open");
+  });

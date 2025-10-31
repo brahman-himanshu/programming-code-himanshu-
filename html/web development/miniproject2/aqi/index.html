@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live AQI Detector</title>
+    <style>
+        body {
+            font-family: "Poppins", sans-serif;
+            background: linear-gradient(135deg, #4facfe, #00f2fe);
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+            margin: 0;
+        }
+        .aqi-box {
+            background: rgba(0, 0, 0, 0.25);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+        }
+        h1 {
+            font-size: 28px;
+            margin-bottom: 15px;
+        }
+        .aqi {
+            font-size: 40px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        .status {
+            font-size: 22px;
+            font-weight: 500;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="aqi-box">
+        <h1>🌍 Live Air Quality Index</h1>
+        <div id="location">Detecting location...</div>
+        <div class="aqi" id="aqi">--</div>
+        <div class="status" id="status">Please wait...</div>
+    </div>
+
+    <script>
+        // Function to get AQI level description
+        function getAQIStatus(aqi) {
+            if (aqi <= 50) return "Good 😊";
+            else if (aqi <= 100) return "Moderate 🙂";
+            else if (aqi <= 200) return "Unhealthy 😷";
+            else if (aqi <= 300) return "Very Unhealthy 🤢";
+            else return "Hazardous ☠️";
+        }
+
+        async function fetchAQI(lat, lon) {
+            try {
+                const res = await fetch(`https://api.waqi.info/feed/geo:${lat};${lon}/?token=demo`);
+                const data = await res.json();
+
+                if (data.status === "ok") {
+                    const city = data.data.city.name;
+                    const aqi = data.data.aqi;
+                    document.getElementById("location").textContent = `📍 Location: ${city}`;
+                    document.getElementById("aqi").textContent = `AQI: ${aqi}`;
+                    document.getElementById("status").textContent = getAQIStatus(aqi);
+                } else {
+                    document.getElementById("location").textContent = "Location not found";
+                    document.getElementById("aqi").textContent = "--";
+                    document.getElementById("status").textContent = "Try again later";
+                }
+            } catch (error) {
+                document.getElementById("location").textContent = "Error fetching data.";
+                document.getElementById("status").textContent = error.message;
+            }
+        }
+
+        // Get user’s live location automatically
+        navigator.geolocation.getCurrentPosition(
+            (pos) => {
+                const lat = pos.coords.latitude;
+                const lon = pos.coords.longitude;
+                fetchAQI(lat, lon);
+            },
+            (err) => {
+                document.getElementById("location").textContent = "Location access denied.";
+                document.getElementById("status").textContent = "Unable to fetch AQI.";
+            }
+        );
+    </script>
+</body>
+</html>
