@@ -703,7 +703,7 @@ header {
 
   .hamburger {
     display: block;
-    order: -1; /* moves hamburger to the left side */
+    order: 2; /* moves hamburger to the left side */
   }
 
   .nav-links {

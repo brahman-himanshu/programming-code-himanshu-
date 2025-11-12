@@ -130,28 +130,76 @@
             const locations = [
                 { 
                     name: "Connaught Place, New Delhi", 
-                    aqi: 342, 
+                    aqi: 200, 
                     quality: "Very Poor",
                     address: "Connaught Place, New Delhi, Delhi 110001, India"
                 },
                 { 
                     name: "Gurugram Sector 29", 
-                    aqi: 365, 
+                    aqi: 210, 
                     quality: "Severe",
                     address: "Sector 29, Gurugram, Haryana 122001, India"
                 },
                 { 
                     name: "Noida Sector 62", 
-                    aqi: 328, 
+                    aqi: 210, 
                     quality: "Very Poor",
                     address: "Sector 62, Noida, Uttar Pradesh 201309, India"
                 },
                 { 
                     name: "Rajouri Garden, Delhi", 
-                    aqi: 355, 
+                    aqi: 226, 
                     quality: "Very Poor",
                     address: "Rajouri Garden, New Delhi, Delhi 110027, India"
-                }
+                },
+                { 
+        name: "Anand Vihar, Delhi", 
+        aqi: 201, 
+        quality: "Severe",
+        address: "Anand Vihar, East Delhi, Delhi 110092, India"
+    },
+    { 
+        name: "Dwarka Sector 10, Delhi", 
+        aqi: 321, 
+        quality: "Very Poor",
+        address: "Sector 10, Dwarka, New Delhi, Delhi 110075, India"
+    },
+    { 
+        name: "Punjabi Bagh, Delhi", 
+        aqi: 260, 
+        quality: "Very Poor",
+        address: "Punjabi Bagh, West Delhi, Delhi 110026, India"
+    },
+    { 
+        name: "Saket, South Delhi", 
+        aqi: 207, 
+        quality: "Very Poor",
+        address: "Saket, South Delhi, Delhi 110017, India"
+    },
+    { 
+        name: "Rohini Sector 18, Delhi", 
+        aqi: 232, 
+        quality: "Very Poor",
+        address: "Sector 18, Rohini, Delhi 110089, India"
+    },
+    { 
+        name: "Okhla Phase 2, Delhi", 
+        aqi: 196, 
+        quality: "Severe",
+        address: "Okhla Industrial Area Phase II, New Delhi, Delhi 110020, India"
+    },
+    { 
+        name: "Lajpat Nagar, Delhi", 
+        aqi: 219, 
+        quality: "Very Poor",
+        address: "Lajpat Nagar, South Delhi, Delhi 110024, India"
+    },
+    { 
+        name: "Indirapuram, Ghaziabad", 
+        aqi: 210, 
+        quality: "Severe",
+        address: "Indirapuram, Ghaziabad, Uttar Pradesh 201014, India"
+    }
             ];
             
             // Randomly select a location for demonstration
