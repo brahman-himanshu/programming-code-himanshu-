@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Least Polluted Route Finder - Step 1</title>
+    <style>
+        /* CSS is minimal for this step, just to structure the page */
+        #map {
+            height: 400px;
+            width: 100%;
+            margin-top: 20px;
+        }
+        #controls {
+            padding: 10px;
+            background-color: #f1f1f1;
+            border-radius: 5px;
+        }
+        input {
+            width: 98%;
+            padding: 8px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="controls">
+        <h3>📍 Enter Locations</h3>
+        <input id="start_point" type="text" placeholder="Start Point">
+        <input id="end_point" type="text" placeholder="End Point">
+        <button onclick="calculateRoute()">Find Route</button>
+    </div>
+
+    <div id="map"></div>
+
+    <script>
+        // ... JavaScript code goes here ...
+        // Global variables to store the Autocomplete objects
+let startAutocomplete;
+let endAutocomplete;
+
+// The callback function specified in the API script URL
+function initMap() {
+    // 1. Initialize the map
+    const map = new google.maps.Map(document.getElementById("map"), {
+        center: { lat: 34.0522, lng: -118.2437 }, // Centered on Los Angeles (or any default city)
+        zoom: 12,
+        mapTypeId: "roadmap",
+    });
+
+    // 2. Get references to the input fields
+    const startInput = document.getElementById("start_point");
+    const endInput = document.getElementById("end_point");
+
+    // 3. Create the Autocomplete objects
+    const options = {
+        // Optionally restrict results to address types
+        types: ['address'], 
+        // Optionally restrict to a country (e.g., 'us')
+        // componentRestrictions: { country: "us" }, 
+    };
+    
+    startAutocomplete = new google.maps.places.Autocomplete(startInput, options);
+    endAutocomplete = new google.maps.places.Autocomplete(endInput, options);
+
+    // 4. Listen for user selecting a place (optional but useful for confirmation/next step)
+    startAutocomplete.addListener("place_changed", () => {
+        const place = startAutocomplete.getPlace();
+        if (!place.geometry) {
+            console.log("Start: No details available for input: '" + place.name + "'");
+            return;
+        }
+        console.log("Start Point Coordinates:", place.geometry.location.lat(), place.geometry.location.lng());
+        // You would typically use place.geometry.location for routing
+    });
+
+    endAutocomplete.addListener("place_changed", () => {
+        const place = endAutocomplete.getPlace();
+        if (!place.geometry) {
+            console.log("End: No details available for input: '" + place.name + "'");
+            return;
+        }
+        console.log("End Point Coordinates:", place.geometry.location.lat(), place.geometry.location.lng());
+    });
+}
+
+// Function to call the next step (routing and pollution analysis)
+function calculateRoute() {
+    // Get the selected Place objects
+    const startPlace = startAutocomplete.getPlace();
+    const endPlace = endAutocomplete.getPlace();
+    
+    if (!startPlace || !endPlace || !startPlace.geometry || !endPlace.geometry) {
+        alert("Please select valid start and end points from the suggestions.");
+        return;
+    }
+
+    console.log("Starting routing process...");
+    // --- THIS IS WHERE STEP 2 AND 3 LOGIC WOULD GO ---
+    // You now have:
+    // Start Latitude: startPlace.geometry.location.lat()
+    // Start Longitude: startPlace.geometry.location.lng()
+    // End Latitude: endPlace.geometry.location.lat()
+    // End Longitude: endPlace.geometry.location.lng()
+}
+    </script>
+
+    <script
+        src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places&callback=initMap"
+        async
+        defer
+    ></script>
+
+</body>
+</html>

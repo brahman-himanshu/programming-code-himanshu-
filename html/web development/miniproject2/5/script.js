@@ -215,7 +215,7 @@
         }
         
         // Initialize slider functionality
-        function initSliders() {
+        function initSliders() { 
             const sliders = document.querySelectorAll('.pollutant-slider input[type="range"]');
             
             sliders.forEach(slider => {
@@ -298,3 +298,71 @@
     navLinks.classList.toggle("active");
     hamburger.classList.toggle("open");
   });
+
+
+  //aqi js codef
+  const API_KEY = "8e44da0b9a9c5d659cc53868fc6a769f1bfd62d8"; // Replace with your WAQI API key
+
+    function getRemarks(aqi) {
+      if (aqi <= 50) return { text: "Good", class: "good" };
+      if (aqi <= 100) return { text: "Moderate", class: "moderate" };
+      if (aqi <= 200) return { text: "Unhealthy", class: "unhealthy" };
+      return { text: "Hazardous", class: "hazardous" };
+    }
+
+    async function fetchAQI(lat, lon) {
+      try {
+        const url = `https://api.waqi.info/feed/geo:${lat};${lon}/?token=${API_KEY}`;
+        const response = await fetch(url);
+        const data = await response.json();
+
+        if (data.status === "ok") {
+          const aqi = data.data.aqi || 0;
+          const remarks = getRemarks(aqi);
+
+          document.getElementById("aqi").textContent = aqi;
+          const remarksEl = document.getElementById("remarks");
+          remarksEl.textContent = remarks.text;
+          remarksEl.className = remarks.class;
+        } else {
+          alert("Unable to fetch AQI data.");
+        }
+      } catch (error) {
+        console.error("Error fetching AQI:", error);
+      }
+    }
+
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        pos => fetchAQI(pos.coords.latitude, pos.coords.longitude),
+        err => alert("Unable to get location.")
+      );
+    } else {
+      alert("Geolocation not supported.");
+    }
+    
+
+    // aqi2 
+// Theme Toggle
+function setupThemeToggle() {
+    const themeToggle = document.getElementById('themeToggle');
+    if (!themeToggle) return;
+
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    document.documentElement.setAttribute('data-theme', savedTheme);
+    themeToggle.innerHTML = savedTheme === 'dark'
+        ? '<i class="fas fa-sun"></i>'
+        : '<i class="fas fa-moon"></i>';
+
+    themeToggle.addEventListener('click', () => {
+        const current = document.documentElement.getAttribute('data-theme') || 'light';
+        const newTheme = current === 'dark' ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', newTheme);
+        localStorage.setItem('theme', newTheme);
+        themeToggle.innerHTML = newTheme === 'dark'
+            ? '<i class="fas fa-sun"></i>'
+            : '<i class="fas fa-moon"></i>';
+    });
+}
+
+    

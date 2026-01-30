@@ -304,6 +304,9 @@
             box-shadow: 0 4px 6px rgba(0,0,0,0.05);
             height: fit-content;
         }
+        .main-card a{
+            text-decoration: none ;
+        }
         
         .main-card-header {
             display: flex;
@@ -744,4 +747,56 @@ header {
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+.theme-toggle {
+    background: transparent;
+    border: none;
+    font-size: 1.4rem;
+    cursor: pointer;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+/* Dark Theme */
+[data-theme="dark"] {
+    --light: #121212;
+    --dark: #e8eaed;
+    --border: #3c4043;
+    --gray: #9aa0a6;
+    background-color: #121212;
+    color: var(--dark);
+}
+
+[data-theme="dark"] body {
+    background-color: #121212;
+    color: var(--dark);
+}
+
+[data-theme="dark"] .card,
+[data-theme="dark"] .location-tracker,
+[data-theme="dark"] .health-recommendations,
+[data-theme="dark"] .route-planner,
+[data-theme="dark"] .main-card,
+[data-theme="dark"] .community-updates,
+[data-theme="dark"] .prevention-tips {
+    background: #1e1e1e;
+}
+
+[data-theme="dark"] header {
+    background: linear-gradient(135deg, #0d47a1 0%, #07296a 100%);
+}
+
+[data-theme="dark"] footer {
+    background-color: #0f0f0f;
+}
+
+[data-theme="dark"] .route-bg {
+    background: #181818;
+}
+/* Dark mode tweaks */
+[data-theme="dark"] .pm25-value-box,
+[data-theme="dark"] .pm25-status-box {
+    background: #181818;
 }

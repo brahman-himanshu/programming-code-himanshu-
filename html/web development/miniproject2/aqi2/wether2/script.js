@@ -5,7 +5,7 @@ const weatherData = document.getElementById('weather-data');
 const loading = document.getElementById('loading');
 
 // API Key (Replace with your OpenWeatherMap API key)
-const API_KEY = '57c5f5ae0dfe26e8d4831274eda13b4b ' ; 
+const API_KEY = '57c5f5ae0dfe26e8d4831274eda13b4b ' ;                 
 
 // Event Listeners
 searchBtn.addEventListener('click', getWeatherData);

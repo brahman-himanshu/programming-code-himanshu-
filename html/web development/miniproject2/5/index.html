@@ -29,16 +29,23 @@
 
       <nav class="nav-links" id="nav-links">
         <a href="#" class="actie">Dashboard</a>
-         <a href="./weather/index.html" >weather application </a>
+         <a href="./wheather/index.html" >weather application </a>
         <a href="#source-identification">Source Identification</a>
         <a href="#forecasting">Forecasting</a>
         <a href="#policy-analysis">Policy Analysis</a>
         <a href="#data-sources">Data Sources</a>
       </nav>
+       <button id="themeToggle" class="theme-toggle">
+                    <i class="fas fa-moon"></i>
+                </button>
     </div>
   </div>
 </header>
-   
+
+
+
+
+
     <!-- Location Tracker -->
     <section class="container">
         <div class="location-tracker">
@@ -77,20 +84,20 @@
         <div class="container">
             <h2 class="section-title"><i class="fas fa-tachometer-alt"></i> Dashboard Overview</h2>
             <div class="overview-cards">
-                <div class="card">
-                    <div class="card-header">
-                        <div class="card-title">Current AQI</div>
-                        <div class="card-icon aqi">
-                            <i class="fas fa-lungs"></i>
-                        </div>
-                    </div>
-                    <div class="card-value" style="color: var(--danger);">152</div>
-                    <div class="card-subtitle"> Poor</div>
-                    <div class="card-change negative">
-                        <i class="fas fa-arrow-up"></i> 2% from yesterday
-                    </div>
-                </div>
-                
+                  <!-- Current AQI -->
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">Current AQI</div>
+            <div class="card-icon aqi">
+              <i class="fas fa-lungs"></i>
+            </div>
+          </div>
+
+          <div class="card-body">
+            <h1><strong></strong> <span id="aqi">--</span></h1>
+            <h3><strong>→</strong> <span id="remarks">--</span></h3>
+          </div>
+        </div>
                 <div class="card">
                     <div class="card-header">
                         <div class="card-title">Primary Pollutant</div>
@@ -444,7 +451,7 @@
                                 <i class="fas fa-building"></i>
                             </div>
                         </div>
-                        <div class="card-value" style="color: var(--primary);">Central Pollution Control Board</div>
+                        <a href="https://cpcb.nic.in/"><div class="card-value" style="color: var(--primary);">Central Pollution Control Board</div></a>
                         <div class="card-subtitle">National air quality data</div>
                         <div class="card-change">
                             <i class="fas fa-sync-alt"></i> Updated hourly
@@ -458,7 +465,7 @@
                                 <i class="fas fa-building"></i>
                             </div>
                         </div>
-                        <div class="card-value" style="color: var(--primary);">Uttar Pradesh Pollution Control Board</div>
+                       <a href="https://uppcb.up.gov.in/en"> <div class="card-value" style="color: var(--primary);">Uttar Pradesh Pollution Control Board</div></a>
                         <div class="card-subtitle">NCR region data</div>
                         <div class="card-change">
                             <i class="fas fa-sync-alt"></i> Updated hourly
@@ -472,7 +479,8 @@
                                 <i class="fas fa-building"></i>
                             </div>
                         </div>
-                        <div class="card-value" style="color: var(--primary);">Delhi Pollution Control Committee</div>
+                        <a href="https://www.dpcc.delhigovt.nic.in/#gsc.tab=0"> <div class="card-value" style="color: var(--primary);">Delhi Pollution Control Committee</div></a>
+
                         <div class="card-subtitle">Delhi-specific data</div>
                         <div class="card-change">
                             <i class="fas fa-sync-alt"></i> Updated hourly
@@ -583,10 +591,10 @@
                 <div class="footer-section">
                     <h3>Official Data Sources</h3>
                     <ul class="footer-links">
-                        <li><a href="#">Central Pollution Control Board (CPCB)</a></li>
-                        <li><a href="#">Uttar Pradesh Pollution Control Board (UPPCB)</a></li>
-                        <li><a href="#">Delhi Pollution Control Committee (DPCC)</a></li>
-                        <li><a href="#">India Meteorological Department (IMD)</a></li>
+                        <li><a href="https://cpcb.nic.in/">Central Pollution Control Board (CPCB)</a></li>
+                        <li><a href="https://uppcb.up.gov.in/en">Uttar Pradesh Pollution Control Board (UPPCB)</a></li>
+                        <li><a href="https://www.dpcc.delhigovt.nic.in/#gsc.tab=0">Delhi Pollution Control Committee (DPCC)</a></li>
+                        <li><a href="https://mausam.imd.gov.in/">India Meteorological Department (IMD)</a></li>
                     </ul>
                 </div>
                 
