@@ -1,279 +1,378 @@
-*{
-    margin: 0;
-    font-family: arial ;
-    /* border:  border-box; */
+/* ================= RESET ================= */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
 
+body {
+  background-color: #e3e6e6;
 }
-.navbar{
-    height: 60px;
-    background:#0f1111;
-    color: white;
-display: flex;
-align-items: center;
-justify-content: space-evenly;
-}
-.nav-logo{
-    height: 50px;
-    width: 100px;
-}
-.logo{
-    background-image: url("https://www.vecteezy.com/vector-art/14018563-amazon-logo7-on-transparent-background");
-    width: 100%;
-    height: 100% ;
-    background-size: cover;
-    font-size: 3rem;
-}
-.border{
-    border: 2px solid transparent;
-}
-.border:hover{
-    border: 1.5px solid white ;
-}
-.nav-search{
-    display: flex;
-    background-color: pink ;
-    width: 620px ;
-    height: 40px ;
-    border-radius: 4px ;
-}
-.search-select{
-    background-color: #f3f3f3;
-    width: 50px ;
-    text-align: center;
-    border-top-left-radius: 4px ;
-    border-bottom-left-radius: 4px ;
-    border: none ;
-}
-.search-input{
-    width: 100%;
-    font-size: 1rem;
-    border: none ;
-    
-}
-.search-icon{
-    width: 45px ;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 1rem ;
-    background-color:#febd68;
-    border-top-right-radius: 4px ;
-    border-bottom-right-radius: 4px ;
-    color: #0f1111;
-}
-span{
-    font-size: 1.3rem;
-}
-.nav-signin{
-    display: flex;
-}
-.nav-signin p{
-    display: flex;
-    text-align: center;
-    justify-content: center;
-}
-.shopping-cart{
-font-size: 2.5rem ;
-display: flex;
-}
-.flag{
-   width: .01rem;
-   display: flex;
-height: 20px;
-justify-content: center;
-text-align: center;
-gap: .3rem;
-}
-.listing{
-    width: 100%;
-    background-color: #212f3d;
-    height: 3rem ;
-    /* border: 2px solid white ; */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    justify-content: space-evenly;
-}
-.listing a{
-    color: #f3f3f3;
-    text-decoration: none ;
-}
-.menubar{
-    display: flex;
-    gap: 0.3rem;
-    font-size: 1.5rem;
-    color: white ;
-}
-.amazonimage img{
-    width: 100%;
-    height: 30rem;
-    background-repeat: repeat;
 
+/* ================= NAVBAR ================= */
+.navbar {
+  height: 60px;
+  background-color: #0f1111;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
 }
-.containers{
 
-    display: flex;
+.nav-logo img {
+  height: 40px;
+  width: auto;
+}
+
+/* Address */
+.nav-address p {
+  font-size: 12px;
+}
+
+.add-icon {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+/* Search */
+.nav-search {
+  display: flex;
+  flex: 1;
+  max-width: 620px;
+  height: 40px;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.search-select {
+  width: 60px;
+  border: none;
+  background-color: #f3f3f3;
+}
+
+.search-input {
+  flex: 1;
+  border: none;
+  padding: 0 10px;
+  font-size: 1rem;
+}
+
+.search-icon {
+  width: 45px;
+  background-color: #febd68;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #0f1111;
+}
+
+/* Language */
+.flag {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+/* Sign in */
+.nav-signin span {
+  font-size: 12px;
+}
+
+.nav-second {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+/* Cart */
+.shopping-cart {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 20px;
+}
+
+/* ================= MENU BAR ================= */
+.listing {
+  background-color: #232f3e;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 0 15px;
+}
+
+.listing a {
+  color: white;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.menubar {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-weight: bold;
+}
+
+/* ================= HERO IMAGE ================= */
+.amazonimage img {
+  width: 100%;
+  height: auto;
+}
+
+/* ================= PRODUCTS ================= */
+.containers {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+  padding: 20px;
+}
+
+.box {
+  background-color: white;
+  padding: 15px;
+}
+
+.box h2 {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.boximg img {
+  width: 100%;
+  height: 250px;
+  object-fit: contain;
+}
+
+/* Full width sections */
+.box5,
+.box6,
+.box13,
+.box17 {
+  grid-column: 1 / -1;
+}
+
+/* ================= FOOTER ================= */
+.first {
+  background-color: #37475a;
+  color: white;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.second,
+.four {
+  background-color: #232f3e;
+  color: white;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  padding: 40px;
+  gap: 20px;
+}
+
+.second a,
+.four a {
+  display: block;
+  margin-top: 8px;
+  color: #ddd;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.three {
+  background-color: #232f3e;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+  padding: 20px;
+}
+
+.threebutton button {
+  padding: 5px 20px;
+  cursor: pointer;
+}
+
+.fourlast {
+  background-color: #131a22;
+  color: white;
+  text-align: center;
+  padding: 15px;
+}
+
+.fourlasta {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: 10px;
+}
+
+.fourlasta a {
+  color: white;
+  text-decoration: none;
+  font-size: 13px;
+}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 768px) {
+  .navbar {
     flex-wrap: wrap;
-    justify-content: space-evenly;
-    background-color: #d5dbdb;
-}
-.box{
-    margin-top: 15px;
-    
-    width: 23% ;
-    gap: 10px ;
-    height: 20rem;
-    border: 2px solid white;
-    background-color: white;
-    padding: 20px 0 15px ;
-}
-.first{
-    margin-top: 2rem;
-    background-color: #212f3d;
-    height: 2.5rem;
-    color:#fff;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.second{
-    background-color: #1b2631;
-    color: #fff;
-    display: flex;
-    justify-content: center;
-    height: 15rem ;
-    justify-content: space-evenly;
-}
-.second h2{
-    margin-top: 3rem;
+    height: auto;
+    padding: 10px;
+  }
 
-}
-.second a{
-    display: block;
-    margin-top: .4rem;
-    color:white;
-    text-decoration: none ;
-    
-}
-.three{
-    background-color: #1c2833;
-    height: 7rem;
+  .nav-search {
     width: 100%;
-}
-.footerimg{
-    display: flex;
-    justify-content: center;
-}
-.footerimg img {
-    margin-top: 40px;
-    width: 4rem;
-    height: 40px ;
-    align-items: center;
-}
-.threebutton{
-    align-items: center;
-    margin-top: 40px ;
-    display: flex;
-    justify-content: center;
-    height: 2rem;
-}
-.three{
-    display: flex;
-    justify-content: center;
-    gap: 40px ;
+    margin-top: 10px;
+  }
+
+  .listing {
+    flex-wrap: wrap;
+    height: auto;
+  }
 }
 
-.threebutton button{
-    margin-top: 10px ;
-    width: 10rem;
-    height: 2rem;
-}
-.four{
-    width: 100%;
-    height: 20rem;
-    background-color: #17202a;
-    display: flex;
-    justify-content: center;
-    justify-content: space-evenly;
-}
-.four h2{
-    margin-top: 40px ;
-    color: white ;
-}
-.four a{
-    display: block;
-    margin-top: .8rem;
-    color:white;
-    text-decoration: none ;
-    
-}
-.fourlast{
-    background-color: #17202a;
-    width: 100%;
-    height: 5rem;
-}
-.fourlast p{
-    display: flex;
-    justify-content: center;
-    color: #fff;
-}
-.fourlasta{
-    gap: 3rem;
-    display: flex;
-    justify-content: center;
-}
-.fourlasta a{
-    color: #fff;
-    text-decoration: none ;
-    margin-bottom: .5rem;
-}
-.box .boximg img{
-    height:250px;
-    margin-left: 2rem;
-    margin-right: 2rem;
-    margin-bottom: 2rem; 
-}
-.box h2{
-    /* margin-bottom: 2rem; */
-    margin-left: 2rem;
-}
-.box7 img{
-    width: 15rem;
-}
-.box5{
-    width: 100%;
-}
-.box6 {
-    width: 50%;
-    height: 300px;
-    /* background-image: cover ; */
-    
-    margin-top: 1px;
-    /* font-size: 15rem; */
-    gap: 20px ;
-    /* border: 2px solid black; */
-    /* background-color: whitesmoke; */
-    padding: 20px 0 15px ;
-    
 
-} 
-.box6 .boximg img{
-    width: 100%;
-    height: 50%;
-    margin-bottom: 19rem;
-    background-image: 100%;
+.add-cart {
+  margin-top: 10px;
+  padding: 8px;
+  width: 100%;
+  border: none;
+  background-color: #ffd814;
+  cursor: pointer;
+  font-weight: bold;
 }
-.box17{
-    width: 100%;
+
+.add-cart:hover {
+  background-color: #f7ca00;
 }
-.box17 h2{
 
 
-    padding: 20px;
+
+/* ===== HAMBURGER MENU ===== */
+@media (max-width: 768px) {
+  .listing {
+    display: none;
+    flex-direction: column;
+    background: #232f3e;
+    padding: 10px;
+  }
+
+  .listing.active {
+    display: flex;
+  }
+
+  .listing a {
+    padding: 8px 0;
+    font-size: 16px;
+  }
+
+  .menubar {
+    cursor: pointer;
+    color: white;
+  }
 }
-.box13 {
+
+/* ===== HORIZONTAL SCROLL SECTIONS ===== */
+.box-horizontal {
+  grid-column: 1 / -1;
+}
+
+.horizontal-scroll {
+  display: flex;
+  gap: 15px;
+  overflow-x: auto;
+  padding: 10px 0;
+}
+
+.horizontal-scroll img {
+  min-width: 180px;
+  height: 180px;
+  object-fit: contain;
+  background: white;
+  cursor: pointer;
+}
+
+/* Hide scrollbar */
+.horizontal-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+
+/* ===== MOBILE NAVBAR VISIBILITY CONTROL ===== */
+@media (max-width: 768px) {
+
+  /* Hide everything by default */
+  .nav-logo,
+  .nav-address,
+  .nav-signin,
+  .flag {
+    display: none;
+  }
+
+  /* Navbar layout */
+  .navbar {
+    justify-content: space-between;
+    padding: 10px;
+  }
+
+  /* Show search bar */
+  .nav-search {
+    flex: 1;
+    margin-right: 10px;
+  }
+
+  /* Show cart */
+  .shopping-cart {
+    display: flex;
+    font-size: 22px;
+  }
+}
+
+@media (max-width: 768px) {
+  .nav-search {
     width: 100%;
+  }
+
+  .search-select {
+    display: none;
+  }
 }
-.box8 img{
-    margin-left: 3rem;
+
+/* ===== MOBILE NAVBAR CUSTOMIZATION ===== */
+@media (max-width: 768px) {
+
+  /* Hide unnecessary elements */
+  .nav-logo,
+  .nav-address,
+  .nav-singin,
+  .box4,
+  .flag {
+    display: none;
+  }
+
+  /* Navbar layout: search + cart only */
+  .navbar {
+    justify-content: space-between;
+    padding: 10px;
+  }
+
+  .nav-search {
+    flex: 1;
+    margin-right: 10px;
+  }
+
+  .shopping-cart {
+    display: flex;
+    font-size: 22px;
+  }
+
+  /* Optional: hide category dropdown in search bar */
+  .search-select {
+    display: none;
+  }
 }
