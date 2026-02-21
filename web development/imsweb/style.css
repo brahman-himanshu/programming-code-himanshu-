@@ -1,0 +1,734 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+.ims-header {
+  width: 100%;
+}
+
+/* Top bar */
+.top-bar {
+  background-color: #0f2e52;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  padding: 6px 20px;
+  font-size: 13px;
+  flex-wrap: wrap;
+}
+
+.top-bar .social-icons {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.top-bar .social-icons i {
+  cursor: pointer;
+}
+
+.student-btn {
+  background-color: #f5791f;
+  color: white;
+  border: none;
+  padding: 6px 10px;
+  font-weight: bold;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* Main header */
+.main-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: linear-gradient(to right, #ff5e3a, #fff 40%, #3db54a);
+  padding: 10px 20px;
+  flex-wrap: wrap;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.logo img {
+  height: 80px;
+}
+
+.college-details h2 {
+  margin: 0;
+  font-size: 20px;
+  color: #d80000;
+}
+
+.college-details p {
+  margin: 4px 0 0;
+  font-size: 13px;
+  color: #444;
+}
+
+
+/* Navbar */
+.navbar ul {
+  display: flex;
+  margin: 0;
+  padding: 10px 20px;
+  list-style: none;
+  flex-wrap: wrap;
+}
+
+.navbar ul li {
+  margin-right: 20px;
+}
+
+.navbar ul li a {
+  color: blue ;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.navbar ul li a:hover {
+  text-decoration: underline;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .main-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .flag-logo {
+    margin-top: 10px;
+    align-self: flex-end;
+  }
+
+  .navbar ul {
+    flex-direction: column;
+    padding: 10px;
+  }
+
+  .navbar ul li {
+    margin-bottom: 8px;
+  }
+
+  .top-bar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .top-bar .social-icons {
+    justify-content: flex-start;
+    flex-wrap: wrap;
+  }
+}
+.logo{
+justify-content: flex-start;
+}
+ .top-bar .social-icons a {
+color: white ;
+  }
+  .containers{
+
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    background-color: #d5dbdb;
+  
+}
+.box{
+    margin-top: 15px;
+    margin-bottom: 3rem;
+    width: 30% ;
+    gap: 5px ;
+    height: 25rem;
+    border: 2px solid white;
+    background-color: white;
+    padding: 20px 0 15px ;
+}
+.first{
+    /* margin-top: 2rem; */
+    background-color: #212f3d;
+    height: 2.5rem;
+    color:#fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.second{
+    background-color: #1b2631;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    height: 15rem ;
+    justify-content: space-evenly;
+}
+
+
+.box .boximg img{
+    height:235px;
+    margin-top: 0;
+
+}
+a{
+    text-decoration: none;
+    color: #1b2631;
+}
+
+
+
+
+
+
+
+ .skeleton{
+    margin-top: 20px;
+    display: flex;
+    color: white;
+ }
+ .skeleton img{
+    height: 430px
+ }
+.announcement{
+    background-color: rgb(13, 13, 122);
+    font-family: "Roboto", sans-serif !important;
+    padding: 10px;
+    height: 75vh;
+     overflow: hidden;
+}
+
+@media (max-width: 768px) {
+  .announcement {
+    display: none;
+  }
+}
+
+
+
+
+.read hr{
+   width:4vw;
+   height: 0.5vh;
+   color: blue;
+   background-color: rgb(8, 8, 86);
+   border-radius: 70px;
+   margin-left: 00px;
+}
+.notice button{
+   background-color: orange;
+   border-radius: 6px;
+   color: white;
+}
+ .read{
+   
+    margin-left: 140px;
+    
+
+ }
+.read p{
+   text-align: justify;
+}
+ .notice{
+   background-color: whitesmoke;
+   display: flex;
+  
+ }
+ .clgnotice img{
+   height: 10vh;
+ }
+   
+   .clgnotice{
+display: flex;
+   }
+   .view{
+      margin-left: 40px;
+   }
+ .red{
+   margin-left: 72px;
+    color: red;
+    margin-top: 5px;
+ }
+ .extend{
+   margin-left: 20px;
+ }
+  .view hr{
+width:4vw;
+   height: 0.5vh;
+   color: blue;
+   background-color: rgb(8, 8, 86);
+   border-radius: 70px;
+   margin-left: 00px;
+  }
+  .scholar img{
+   height: 10vh;
+   width: 4vw;
+  }
+  .scholar{
+   display: flex;
+  }
+  .imp{
+   margin-left: 60px;
+  }
+  .imp hr{
+   height: 0.5vh;
+   width: 4vw;
+   color: blue;
+   background-color: rgb(8, 8, 86);
+   border-radius: 70px;
+   margin-left: 00px;
+  }
+  .erp{
+   background-color: orangered;
+   height: 7vh;
+   width: 20vw;
+   margin-top: 44px;
+  }
+  .text{
+   font-family: "Roboto", sans-serif !important;
+   margin-left: 20px;
+   background-color: rgb(5, 5, 96);
+   color: white;
+   height: 7vh;
+   display: flex;
+   justify-content:  center;
+  margin-top: 20px;
+  align-content: center;
+  box-sizing: inherit;
+ transition: all 0.5s linear;
+ transform-origin: left;
+  }
+     p.cc{
+      margin-top: 16px;
+      margin-left: -111px;
+     }
+     .uni{
+       background-color: orangered;
+   height: 7vh;
+   width: 20vw;
+   margin-top: 44px;
+     }
+     .co{
+      font-family: "Roboto", sans-serif !important;
+   margin-left: 20px;
+   background-color: rgb(5, 5, 96);
+   color: white;
+   height: 7vh;
+   display: flex;
+   justify-content:  center;
+  margin-top: -35px;
+  align-content: center;
+  box-sizing: inherit;
+   transition: all 0.5s linear;
+    transform-origin: left;
+  
+     }
+     p.cg{
+       margin-top: 16px;
+      margin-left: -64px;
+     }
+     .edu{
+       background-color: orangered;
+   height: 7vh;
+   width: 20vw;
+   margin-top: 44px;
+     }
+     .ee{
+      font-family: "Roboto", sans-serif !important;
+   margin-left: 20px;
+   background-color: rgb(5, 5, 96);
+   color: white;
+   height: 7vh;
+   display: flex;
+   justify-content:  center;
+  margin-top: -35px;
+  align-content: center;
+  box-sizing: inherit;
+   transition: all 0.5s linear;
+    transform-origin: left;
+     }
+     p.cf{
+      margin-top: 5px;
+      margin-left:  31px;
+     }
+ .add{
+    background-color: orangered;
+   height: 7vh;
+   width: 20vw;
+   margin-top: 44px;
+ }
+ .gg{
+   font-family: "Roboto", sans-serif !important;
+   margin-left: 20px;
+   background-color: rgb(5, 5, 96);
+   color: white;
+   height: 7vh;
+   display: flex;
+   justify-content:  center;
+  margin-top: -35px;
+  align-content: center;
+  box-sizing: inherit;
+  transition: all 0.5s linear;
+   transform-origin: left;
+ }
+ p.gg{
+    margin-top: 16px;
+      margin-left: -55px;
+      height: 20px;
+ }
+  .translate:hover{
+   background-color: orangered;
+  }
+
+
+.timg img  {
+height: 566px;
+width: 100%;
+}
+
+
+
+.timg2 img  {
+    margin-top: 2rem;
+height: 500px;
+width: 35%;
+}
+
+
+/* footer  */
+
+
+
+
+
+
+
+footer {
+  background-color: #00587a;
+  color: white;
+  padding: 20px 30px;
+  font-size: 14px;
+}
+
+.footer-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.footer-column {
+  flex: 1;
+  min-width: 220px;
+}
+
+.footer-column h3 {
+  margin-bottom: 10px;
+  font-size: 15px;
+  color: #ffffff;
+}
+
+.footer-column ul {
+  list-style: none;
+}
+
+.footer-column ul li {
+  margin-bottom: 8px;
+  cursor: pointer;
+  color: #d0e8f2;
+}
+
+.footer-column ul li:hover {
+  text-decoration: underline;
+}
+
+.social-icons {
+  margin-bottom: 10px;
+}
+
+.social-icons i {
+  margin-right: 10px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.contact-info p {
+  margin-bottom: 8px;
+}
+
+.bottom-bar {
+  text-align: center;
+  margin-top: 20px;
+  border-top: 1px solid #ccc;
+  padding-top: 10px;
+  font-size: 13px;
+}
+
+.bottom-bar a {
+  color: #fff;
+  text-decoration: underline;
+}
+
+.bottom-bar a:hover {
+  color: #ffd700;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .footer-container {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .footer-column {
+    margin-bottom: 20px;
+  }
+
+  .social-icons {
+    justify-content: center;
+  }
+}
+
+
+
+
+/* our major recuriter  */
+
+
+.recruiters-section {
+  padding: 40px 20px;
+  background-color: #fff;
+  text-align: center;
+}
+
+.recruiters-section h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  position: relative;
+  display: inline-block;
+}
+
+.recruiters-section h2::after {
+  content: "";
+  display: block;
+  width: 60px;
+  height: 3px;
+  background: #222;
+  margin: 10px auto 0;
+}
+
+
+
+/* add responsivve  */
+/* ================================
+   RESPONSIVE STYLES FOR MOBILE
+================================== */
+
+@media (max-width: 768px) {
+  body {
+    overflow-x: hidden;
+  }
+
+  /* Top bar */
+  .top-bar {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 10px;
+  }
+
+  .top-bar .social-icons {
+    flex-wrap: wrap;
+    justify-content: flex-start;
+  }
+
+  /* Header */
+  .main-header {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .navbar ul {
+    flex-direction: column;
+    padding: 0;
+    align-items: center;
+  }
+
+  .navbar ul li {
+    margin: 10px 0;
+  }
+
+  .logo img {
+    height: 60px;
+  }
+
+  /* Skeleton Section */
+  .skeleton {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .announcement {
+    width: 90%;
+    height: auto;
+  }
+
+
+
+  
+  .notice {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .read,
+  .view,
+  .imp {
+    margin: 20px auto;
+    width: 90%;
+  }
+
+  .read p,
+  .view p,
+  .imp p {
+    font-size: 14px;
+  }
+
+  .erp,
+  .uni,
+  .edu,
+  .add {
+    width: 100%;
+  }
+
+  /* Courses */
+  .containers {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .box {
+    width: 90%;
+    height: auto;
+    padding-bottom: 20px;
+  }
+
+  .boximg img {
+    height: auto;
+    max-width: 100%;
+  }
+
+  /* Testimonial */
+
+
+
+
+  
+  .timg img,
+  .timg2 img {
+    width: 100%;
+    height: auto;
+  }
+
+  .timg2 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+
+  
+  /* Footer */
+  .footer-container {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .footer-column {
+    margin-bottom: 20px;
+  }
+
+  .social-icons {
+    justify-content: center;
+  }
+
+  /* Recruiters Section */
+  .recruiters-logos {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .recruiters-logos img {
+    height: auto;
+    width: 70%;
+    margin: 0 auto;
+  }
+}
+
+
+/* humburger  */
+.hamburger {
+  display: none;
+  font-size: 26px;
+  color: #000;
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .hamburger {
+    display: block;
+    margin-left: auto;
+    padding: 10px;
+  }
+
+  .navbar ul {
+    display: none;
+    flex-direction: column;
+    background-color: #fff;
+    width: 100%;
+    margin: 0;
+    padding: 10px 0;
+    border-top: 1px solid #ddd;
+  }
+
+  .navbar ul li {
+    text-align: center;
+    margin: 10px 0;
+  }
+
+  .navbar ul li a {
+    color: #000;
+    font-weight: 600;
+  }
+
+  .navbar ul.show {
+    display: flex;
+  }
+}
+
+/* ims image responsive  */
+.wall {
+  width: 100%;
+  height: auto;
+  overflow: hidden;
+}
+
+.wall img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+}
+@media (max-width: 768px) {
+  .wall {
+    height: auto;
+  }
+
+  .wall img {
+    height: auto;
+  }
+}
+

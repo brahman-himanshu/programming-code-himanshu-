@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Live Location Tracker</title>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      text-align: center;
+      background: #f4f6f8;
+      color: #333;
+      padding-top: 100px;
+    }
+
+    
+
+    p {
+      margin: 10px 0;
+      font-size: 16px;
+    }
+
+    #address {
+      color: #111;
+      font-weight: 500;
+    }
+
+    .loading {
+      color: gray;
+      font-style: italic;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    
+    <p><b>Address:</b> <span id="address" class="loading">Fetching...</span></p>
+  </div>
+
+  <script>
+    // Live location tracker (only address)
+    if (navigator.geolocation) {
+      navigator.geolocation.watchPosition(success, error, {
+        enableHighAccuracy: true,
+        maximumAge: 0,
+        timeout: 10000
+      });
+    } else {
+      document.getElementById("address").textContent = "Geolocation not supported.";
+    }
+
+    function success(position) {
+      const lat = position.coords.latitude;
+      const lon = position.coords.longitude;
+
+      // Fetch readable address from coordinates
+      fetch(`https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lon}&format=json`)
+        .then(res => res.json())
+        .then(data => {
+          const address = data.display_name || "Unable to fetch address";
+          document.getElementById("address").textContent = address;
+          document.getElementById("address").classList.remove("loading");
+        })
+        .catch(() => {
+          document.getElementById("address").textContent = "Error fetching address";
+        });
+    }
+
+    function error(err) {
+      document.getElementById("address").textContent = "Error: " + err.message;
+    }
+  </script>
+
+</body>
+</html>

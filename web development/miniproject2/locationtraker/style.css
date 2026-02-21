@@ -1,0 +1,66 @@
+body {
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+  background: #f3f4f6;
+  text-align: center;
+}
+
+h2 {
+  margin: 15px 0;
+  color: #333;
+}
+
+#map {
+  height: 80vh;
+  width: 90%;
+  margin: auto;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+#info {
+  margin-top: 10px;
+  background: white;
+  padding: 10px;
+  border-radius: 8px;
+  width: 300px;
+  margin: 10px auto;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+
+
+
+body {
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+  background: #f3f4f6;
+  text-align: center;
+}
+
+h2 {
+  margin: 15px 0;
+  color: #333;
+}
+
+#map {
+  height: 75vh;
+  width: 90%;
+  margin: auto;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+#info {
+  margin-top: 10px;
+  background: white;
+  padding: 10px;
+  border-radius: 8px;
+  width: 320px;
+  margin: 15px auto;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+#address {
+  color: #0077cc;
+}

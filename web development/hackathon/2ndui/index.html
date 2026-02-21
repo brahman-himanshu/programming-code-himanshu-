@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgriConnect Comprehensive Farmer Portal</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Use Inter font family -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #eef3eb; /* Light earth tone background */
+        }
+        /* Custom scrollbar for content area */
+        .scrollable-area::-webkit-scrollbar {
+            width: 8px;
+        }
+        .scrollable-area::-webkit-scrollbar-thumb {
+            background-color: #4d7c0f; /* Lime 700 */
+            border-radius: 4px;
+        }
+        .scrollable-area::-webkit-scrollbar-track {
+            background-color: #d9f99d; /* Lime 200 */
+        }
+        /* Tailwind for selected button */
+        .tab-btn.active {
+            @apply bg-lime-700 text-white shadow-lg;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+    <!-- Main Container -->
+    <div id="app" class="flex flex-col w-full max-w-7xl mx-auto bg-white shadow-2xl rounded-xl overflow-hidden my-4 lg:my-8">
+
+        <!-- Header -->
+        <header class="bg-lime-700 p-4 lg:p-6 text-white shadow-lg flex justify-between items-center sticky top-0 z-10">
+            <h1 class="text-3xl font-extrabold flex items-center">
+                <i class="fas fa-seedling mr-3 text-lime-300"></i> AgriConnect Portal
+            </h1>
+            <div id="user-info" class="text-sm bg-lime-800 py-1 px-3 rounded-full">Authenticating...</div>
+        </header>
+
+        <!-- Main Content Layout -->
+        <div class="flex-1 flex flex-col lg:flex-row">
+            
+            <!-- Sidebar Navigation (Tabs) -->
+            <nav id="sidebar" class="bg-gray-50 p-4 border-b lg:border-r lg:border-b-0 lg:w-64 flex flex-row lg:flex-col overflow-x-auto whitespace-nowrap lg:space-y-2">
+                <button data-tab="dashboard" class="tab-btn active px-4 py-3 mx-1 lg:mx-0 lg:w-full text-base font-medium rounded-xl text-gray-700 hover:bg-lime-100 transition duration-150 flex items-center">
+                    <i class="fas fa-chart-bar w-5 mr-3"></i> Dashboard & Forecast
+                </button>
+                <button data-tab="my-data" class="tab-btn px-4 py-3 mx-1 lg:mx-0 lg:w-full text-base font-medium rounded-xl text-gray-700 hover:bg-lime-100 transition duration-150 flex items-center">
+                    <i class="fas fa-database w-5 mr-3"></i> My Farm Data
+                </button>
+                <button data-tab="schemes" class="tab-btn px-4 py-3 mx-1 lg:mx-0 lg:w-full text-base font-medium rounded-xl text-gray-700 hover:bg-lime-100 transition duration-150 flex items-center">
+                    <i class="fas fa-hand-holding-heart w-5 mr-3"></i> Govt Schemes
+                </button>
+                <button data-tab="products" class="tab-btn px-4 py-3 mx-1 lg:mx-0 lg:w-full text-base font-medium rounded-xl text-gray-700 hover:bg-lime-100 transition duration-150 flex items-center">
+                    <i class="fas fa-truck-field w-5 mr-3"></i> Products & Supply
+                </button>
+                <button data-tab="report" class="tab-btn px-4 py-3 mx-1 lg:mx-0 lg:w-full text-base font-medium rounded-xl text-gray-700 hover:bg-lime-100 transition duration-150 flex items-center">
+                    <i class="fas fa-bullhorn w-5 mr-3"></i> Report Issue
+                </button>
+            </nav>
+
+            <!-- Content Display Area -->
+            <main id="content-area" class="flex-1 p-6 lg:p-10 scrollable-area overflow-y-auto h-[75vh] lg:h-auto">
+                <!-- Content will be injected here -->
+            </main>
+        </div>
+    </div>
+
+    <!-- Font Awesome Icons -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
+
+    <!-- Firebase Imports and Logic -->
+    <script type="module">
+        // Firebase V9 modular imports
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { 
+            getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged 
+        } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { 
+            getFirestore, collection, doc, addDoc, setDoc, updateDoc, deleteDoc, onSnapshot, query, serverTimestamp 
+        } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        import { setLogLevel } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        
+        // --- Global Variables (Provided by Canvas Environment) ---
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+        const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : {};
+        const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
+
+        // --- Core Firebase Services & State ---
+        let app, db, auth, userId = null;
+        let farmRecords = []; // Local state for farm data
+
+        setLogLevel('Debug'); // Enable Firestore logging
+
+        // --- Initialization and Authentication ---
+        async function initializeFirebase() {
+            try {
+                app = initializeApp(firebaseConfig);
+                db = getFirestore(app);
+                auth = getAuth(app);
+
+                // Authenticate user
+                if (initialAuthToken) {
+                    await signInWithCustomToken(auth, initialAuthToken);
+                } else {
+                    await signInAnonymously(auth);
+                }
+
+                onAuthStateChanged(auth, (user) => {
+                    if (user) {
+                        userId = user.uid;
+                        document.getElementById('user-info').textContent = `ID: ${userId.substring(0, 8)}...`;
+                        console.log("Firebase Auth Ready. User ID:", userId);
+                        startFarmRecordsListener();
+                        loadTab('dashboard');
+                    } else {
+                        console.error("Authentication failed.");
+                        document.getElementById('user-info').textContent = 'Guest User (Login Error)';
+                    }
+                });
+
+            } catch (error) {
+                console.error("Firebase Initialization Error:", error);
+                document.getElementById('user-info').textContent = 'Error Initializing Firebase';
+            }
+        }
+
+        // --- Firestore Collection References ---
+        // Private data path for individual farm records
+        const getFarmRecordsCollectionRef = () => {
+            if (!userId || !db) return null;
+            return collection(db, `artifacts/${appId}/users/${userId}/farm_records`);
+        };
+        
+        // Public data path for reports (visible to all authorized users/system)
+        const getReportsCollectionRef = () => {
+             if (!db) return null;
+            return collection(db, `artifacts/${appId}/public/data/reports`);
+        };
+
+
+        // --- Real-time Data Listener ---
+        function startFarmRecordsListener() {
+            const recordsRef = getFarmRecordsCollectionRef();
+            if (!recordsRef) return;
+
+            const q = query(recordsRef);
+
+            onSnapshot(q, (snapshot) => {
+                farmRecords = [];
+                snapshot.forEach((doc) => {
+                    farmRecords.push({ id: doc.id, ...doc.data() });
+                });
+                // Sort by date descending
+                farmRecords.sort((a, b) => (b.date || '').localeCompare(a.date || ''));
+                console.log("Farm Records updated:", farmRecords);
+
+                // Re-render only if the 'my-data' tab is active
+                if (document.querySelector('.tab-btn.active')?.dataset.tab === 'my-data') {
+                    renderMyDataTab(document.getElementById('content-area'));
+                }
+            }, (error) => {
+                console.error("Error listening to farm records:", error);
+            });
+        }
+
+        // --- CRUD Operations for Farm Records ---
+
+        window.saveFarmRecord = async (event) => {
+            event.preventDefault();
+            const form = event.target;
+            const recordsRef = getFarmRecordsCollectionRef();
+            if (!recordsRef) return;
+
+            // Simple validation
+            if (!form.crop.value || !form.date.value || !form.area.value) {
+                return alertMessage('Please fill out the required fields (Crop, Date, Area).', 'error');
+            }
+
+            const recordData = {
+                crop: form.crop.value,
+                area: form.area.value + ' ' + form.areaUnit.value,
+                date: form.date.value,
+                yield: form.yield.value ? form.yield.value + ' ' + form.yieldUnit.value : 'N/A',
+                notes: form.notes.value,
+                timestamp: serverTimestamp()
+            };
+            
+            try {
+                await addDoc(recordsRef, recordData);
+                alertMessage('New record added successfully!', 'success');
+                form.reset();
+            } catch (e) {
+                console.error("Error saving document: ", e);
+                alertMessage('Error saving record.', 'error');
+            }
+        };
+
+        window.deleteFarmRecord = async (id) => {
+            if (!window.confirm("Are you sure you want to permanently delete this farm record?")) return;
+            const recordsRef = getFarmRecordsCollectionRef();
+            if (!recordsRef) return;
+
+            try {
+                await deleteDoc(doc(recordsRef, id));
+                alertMessage('Record deleted.', 'success');
+            } catch (e) {
+                console.error("Error deleting document: ", e);
+                alertMessage('Error deleting record.', 'error');
+            }
+        };
+
+        // --- Report Submission ---
+        window.submitReport = async (event) => {
+            event.preventDefault();
+            const form = event.target;
+            const reportsRef = getReportsCollectionRef();
+            if (!reportsRef) return;
+
+            const reportData = {
+                type: form.reportType.value,
+                location: form.location.value,
+                description: form.description.value,
+                submittedBy: userId,
+                status: 'Pending Review',
+                timestamp: serverTimestamp()
+            };
+
+            try {
+                await addDoc(reportsRef, reportData);
+                alertMessage('Your report has been submitted to the government authorities.', 'success');
+                form.reset();
+            } catch (e) {
+                console.error("Error submitting report: ", e);
+                alertMessage('Error submitting report. Check console.', 'error');
+            }
+        };
+
+
+        // --- UI Rendering & Utility Functions ---
+
+        function alertMessage(message, type = 'info') {
+            const container = document.getElementById('app');
+            let bgColor = type === 'success' ? 'bg-green-600' : type === 'error' ? 'bg-red-600' : 'bg-blue-600';
+            
+            const existingAlert = document.getElementById('temp-alert');
+            if(existingAlert) existingAlert.remove();
+            
+            const alertDiv = document.createElement('div');
+            alertDiv.id = 'temp-alert';
+            alertDiv.className = `fixed top-4 right-4 p-4 rounded-xl text-white font-semibold shadow-2xl transition-opacity duration-300 z-50 ${bgColor}`;
+            alertDiv.textContent = message;
+
+            document.body.appendChild(alertDiv);
+            
+            setTimeout(() => {
+                alertDiv.remove();
+            }, 5000);
+        }
+
+        // Tabs Content Map
+        const tabContents = {
+            'dashboard': renderDashboardTab,
+            'my-data': renderMyDataTab,
+            'schemes': renderSchemesTab,
+            'products': renderProductsTab,
+            'report': renderReportTab,
+        };
+
+        function loadTab(tabName) {
+            const contentArea = document.getElementById('content-area');
+            contentArea.innerHTML = '';
+            
+            // Update active button styling
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active', 'bg-lime-700', 'text-white');
+                btn.classList.add('text-gray-700', 'hover:bg-lime-100');
+                if (btn.dataset.tab === tabName) {
+                    btn.classList.add('active', 'bg-lime-700', 'text-white');
+                    btn.classList.remove('text-gray-700', 'hover:bg-lime-100');
+                }
+            });
+
+            // Call the appropriate rendering function
+            if (tabContents[tabName]) {
+                tabContents[tabName](contentArea);
+            }
+        }
+
+        function renderDashboardTab(container) {
+            // Richer Simulated data for forecasting and market trends
+            const forecastData = [
+                { day: 'Today', temp: '32°C', weather: 'Partly Sunny', advice: 'Avoid daytime irrigation; apply pest control agents early morning.', icon: 'fas fa-sun' },
+                { day: 'Tomorrow', temp: '28°C', weather: 'Heavy Rainfall', advice: 'Secure stored grain; check drainage systems on fields.', icon: 'fas fa-cloud-showers-heavy' },
+                { day: 'Day 3', temp: '30°C', weather: 'Cloudy', advice: 'Ideal conditions for fertilization. Monitor for humidity-related fungus.', icon: 'fas fa-cloud' },
+                { day: 'Day 4', temp: '34°C', weather: 'Heat Wave Alert', advice: 'Provide shade/mist for sensitive crops; keep livestock hydrated.', icon: 'fas fa-fire-flame-curved' },
+            ];
+
+            const trends = [
+                { item: 'Paddy Rice (Basmati)', price: '₹3,800/quintal', trend: 'rising', percent: '+1.5%', icon: 'fas fa-arrow-up text-green-600' },
+                { item: 'Cotton', price: '₹7,500/quintal', trend: 'falling', percent: '-0.8%', icon: 'fas fa-arrow-down text-red-600' },
+                { item: 'Lentils (Masoor)', price: '₹6,200/quintal', trend: 'stable', percent: '0.0%', icon: 'fas fa-minus text-gray-500' },
+                { item: 'Onions', price: '₹18/kg', trend: 'rising', percent: '+3.2%', icon: 'fas fa-arrow-up text-green-600' },
+            ];
+
+            container.innerHTML = `
+                <h2 class="text-4xl font-extrabold text-lime-800 mb-8 border-b-4 border-lime-200 pb-3">Operational Dashboard</h2>
+
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-10">
+                    <!-- Key Metric 1 -->
+                    <div class="bg-white p-6 rounded-2xl shadow-xl border-l-4 border-blue-500">
+                        <p class="text-sm font-medium text-gray-500">Total Farm Area Tracked</p>
+                        <p class="text-4xl font-bold text-blue-800 mt-1">45.2 <span class="text-2xl font-semibold">Acres</span></p>
+                    </div>
+                    <!-- Key Metric 2 -->
+                    <div class="bg-white p-6 rounded-2xl shadow-xl border-l-4 border-amber-500">
+                        <p class="text-sm font-medium text-gray-500">Upcoming Harvests (Next 30 days)</p>
+                        <p class="text-4xl font-bold text-amber-800 mt-1">2 <span class="text-2xl font-semibold">Crops</span></p>
+                    </div>
+                     <!-- Key Metric 3 -->
+                    <div class="bg-white p-6 rounded-2xl shadow-xl border-l-4 border-red-500">
+                        <p class="text-sm font-medium text-gray-500">Pest/Disease Alert Level</p>
+                        <p class="text-4xl font-bold text-red-800 mt-1">LOW <span class="text-2xl font-semibold">Risk</span></p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <!-- Weather/Forecasting Card -->
+                    <div class="bg-lime-50 p-6 rounded-2xl shadow-xl border border-lime-200">
+                        <h3 class="text-2xl font-bold text-lime-700 mb-4 flex items-center"><i class="fas fa-cloud-sun-rain mr-2 text-3xl"></i> Local Farming Forecast</h3>
+                        <div class="space-y-4">
+                            ${forecastData.map(f => `
+                                <div class="p-4 bg-white border border-lime-200 rounded-xl flex flex-col sm:flex-row justify-between items-start sm:items-center transition duration-200 hover:shadow-md">
+                                    <div class="font-bold text-lime-800 text-lg flex items-center mb-1 sm:mb-0">
+                                        <i class="${f.icon} mr-3 w-6 text-lime-600"></i> ${f.day} - ${f.weather}
+                                    </div>
+                                    <div class="text-sm text-gray-700 italic ml-0 sm:ml-4">${f.advice}</div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+
+                    <!-- Market Trends Card -->
+                    <div class="bg-blue-50 p-6 rounded-2xl shadow-xl border border-blue-200">
+                        <h3 class="text-2xl font-bold text-blue-700 mb-4 flex items-center"><i class="fas fa-money-bill-trend-up mr-2 text-3xl"></i> Mandi Price Trends</h3>
+                        <div class="space-y-4">
+                            ${trends.map(t => `
+                                <div class="p-4 bg-white border border-blue-200 rounded-xl flex justify-between items-center transition duration-200 hover:shadow-md">
+                                    <span class="font-medium text-blue-800 text-lg">${t.item}</span>
+                                    <div class="flex items-center space-x-4">
+                                        <span class="text-xl font-extrabold text-blue-900">${t.price}</span>
+                                        <span class="text-sm font-bold capitalize flex items-center">
+                                            <i class="${t.icon} mr-1"></i> ${t.percent}
+                                        </span>
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderMyDataTab(container) {
+            container.innerHTML = `
+                <h2 class="text-4xl font-extrabold text-lime-800 mb-8 border-b-4 border-lime-200 pb-3">My Farm Records</h2>
+
+                <!-- Add New Record Form -->
+                <div class="bg-white p-6 rounded-2xl shadow-xl mb-8 border border-lime-300">
+                    <h3 class="text-2xl font-bold text-lime-700 mb-4 border-b pb-2">Record a New Crop Cycle</h3>
+                    <form onsubmit="saveFarmRecord(event)" id="farm-record-form">
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                            <!-- Crop -->
+                            <div>
+                                <label for="crop" class="block text-sm font-medium text-gray-700">Crop Name <span class="text-red-500">*</span></label>
+                                <input type="text" name="crop" id="crop" required class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-lime-500 focus:ring-lime-500 p-3 border">
+                            </div>
+                            <!-- Date -->
+                            <div>
+                                <label for="date" class="block text-sm font-medium text-gray-700">Sowing/Start Date <span class="text-red-500">*</span></label>
+                                <input type="date" name="date" id="date" required class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-lime-500 focus:ring-lime-500 p-3 border">
+                            </div>
+                            <!-- Area -->
+                            <div class="flex space-x-2">
+                                <div class="flex-1">
+                                    <label for="area" class="block text-sm font-medium text-gray-700">Area <span class="text-red-500">*</span></label>
+                                    <input type="number" name="area" id="area" required min="0" step="any" class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-lime-500 focus:ring-lime-500 p-3 border">
+                                </div>
+                                <div class="w-1/4">
+                                    <label for="areaUnit" class="block text-sm font-medium text-gray-700">Unit</label>
+                                    <select name="areaUnit" id="areaUnit" class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-lime-500 focus:ring-lime-500 p-3 border">
+                                        <option value="Acre">Acre</option>
+                                        <option value="Hectare">Hectare</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <!-- Yield -->
+                            <div class="flex space-x-2">
+                                <div class="flex-1">
+                                    <label for="yield" class="block text-sm font-medium text-gray-700">Harvested Yield (Optional)</label>
+                                    <input type="number" name="yield" id="yield" min="0" step="any" class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-lime-500 focus:ring-lime-500 p-3 border">
+                                </div>
+                                <div class="w-1/4">
+                                    <label for="yieldUnit" class="block text-sm font-medium text-gray-700">Unit</label>
+                                    <select name="yieldUnit" id="yieldUnit" class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-lime-500 focus:ring-lime-500 p-3 border">
+                                        <option value="Quintal">Quintal</option>
+                                        <option value="Tonne">Tonne</option>
+                                        <option value="Kg">Kg</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-4">
+                            <label for="notes" class="block text-sm font-medium text-gray-700">Detailed Notes (Fertilizer, Pest Issues, Irrigation Schedule)</label>
+                            <textarea name="notes" id="notes" rows="3" class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-lime-500 focus:ring-lime-500 p-3 border"></textarea>
+                        </div>
+                        <div class="mt-6 flex justify-end">
+                            <button type="submit" class="inline-flex justify-center py-3 px-8 border border-transparent shadow-md text-base font-medium rounded-xl text-white bg-lime-600 hover:bg-lime-700 transition duration-150">
+                                <i class="fas fa-save mr-2"></i> Save New Record
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Records List -->
+                <div class="mt-10">
+                    <h3 class="text-2xl font-bold text-lime-700 mb-4 flex items-center"><i class="fas fa-history mr-2"></i> Historical Records (${farmRecords.length})</h3>
+                    <div id="records-list" class="space-y-4">
+                        ${farmRecords.length > 0 ? farmRecords.map(record => `
+                            <div class="bg-gray-50 p-5 border border-gray-200 rounded-xl shadow-md flex flex-col md:flex-row justify-between items-start md:items-center">
+                                <div class="flex-1">
+                                    <p class="text-xl font-bold text-lime-800">${record.crop} <span class="text-sm font-normal text-gray-500">(${record.date})</span></p>
+                                    <div class="mt-2 text-sm text-gray-700 grid grid-cols-2 gap-x-4">
+                                        <p><strong>Area:</strong> ${record.area}</p>
+                                        <p><strong>Yield:</strong> ${record.yield}</p>
+                                        <p class="col-span-2 mt-1"><strong>Notes:</strong> ${record.notes || 'N/A'}</p>
+                                    </div>
+                                </div>
+                                <div class="mt-4 md:mt-0">
+                                    <button onclick="window.deleteFarmRecord('${record.id}')" class="text-red-500 hover:text-red-700 text-sm font-medium py-2 px-4 rounded-lg border border-red-300 transition duration-150">
+                                        <i class="fas fa-trash-alt mr-1"></i> Delete
+                                    </button>
+                                </div>
+                            </div>
+                        `).join('') : '<p class="text-gray-500 p-6 bg-lime-100 rounded-lg border border-lime-300 text-center">No farm records found. Start tracking your cycles above!</p>'}
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderSchemesTab(container) {
+            const schemes = [
+                { id: 1, name: 'PM-KISAN Samman Nidhi', focus: 'Direct Income Support', amount: '₹6,000/year', details: 'Provides three equal installments of financial support to all landholding farmer families across the country.', status: 'Active', color: 'green' },
+                { id: 2, name: 'Pradhan Mantri Fasal Bima Yojana (PMFBY)', focus: 'Crop Insurance', amount: 'Low Premiums', details: 'A comprehensive risk solution providing insurance cover for notified crops against non-preventable natural risks.', status: 'Seasonal Enrollment', color: 'blue' },
+                { id: 3, name: 'Kisan Credit Card (KCC)', focus: 'Credit & Loans', amount: 'Low Interest', details: 'Offers short-term credit limits for crop cultivation, post-harvest expenses, and working capital for allied activities.', status: 'Permanent', color: 'yellow' },
+                { id: 4, name: 'Soil Health Card Scheme', focus: 'Soil Management', amount: 'Free Testing', details: 'A scheme to promote soil health by providing farmers with a Soil Health Card (SHC) based on soil testing.', status: 'Active', color: 'indigo' },
+            ];
+
+            container.innerHTML = `
+                <h2 class="text-4xl font-extrabold text-lime-800 mb-8 border-b-4 border-lime-200 pb-3">Government Schemes & Subsidies</h2>
+                <p class="text-lg text-gray-600 mb-8">Access critical financial and resource support programs. <span class="font-semibold text-lime-700">Check eligibility before applying.</span></p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    ${schemes.map(scheme => `
+                        <div class="bg-white p-6 rounded-2xl shadow-lg border-t-4 border-${scheme.color}-500 transition duration-200 hover:shadow-xl">
+                            <span class="text-xs font-bold uppercase py-1 px-3 rounded-full bg-${scheme.color}-100 text-${scheme.color}-700">${scheme.focus}</span>
+                            <h3 class="text-2xl font-bold text-gray-800 mt-3">${scheme.name}</h3>
+                            <p class="mt-2 text-base text-gray-700">${scheme.details}</p>
+                            
+                            <div class="flex justify-between items-center mt-4 border-t pt-3">
+                                <span class="text-xl font-extrabold text-${scheme.color}-600">${scheme.amount}</span>
+                                <button class="bg-${scheme.color}-600 hover:bg-${scheme.color}-700 text-white font-medium py-2 px-4 rounded-lg text-sm transition duration-150">
+                                    View Details <i class="fas fa-arrow-right ml-1"></i>
+                                </button>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+        }
+
+        function renderProductsTab(container) {
+            const products = [
+                { id: 1, name: 'Neem-Aza Organic Pesticide', type: 'Pesticide', price: '₹550/L', availability: 'High', seller: 'GreenLife Agro', icon: 'fas fa-leaf text-green-500' },
+                { id: 2, name: 'NPK 19:19:19 Water Soluble', type: 'Fertilizer', price: '₹1,200/Bag', availability: 'Medium', seller: 'ChemicalCorp', icon: 'fas fa-flask-vial text-blue-500' },
+                { id: 3, name: 'High-Drip Irrigation Kit (1 Acre)', type: 'Equipment', price: '₹9,800', availability: 'High', seller: 'AquaFlow Systems', icon: 'fas fa-tint text-cyan-500' },
+                { id: 4, name: 'Pusa Basmati 1121 Seeds', type: 'Seeds', price: '₹120/kg', availability: 'Low', seller: 'National Seeds Corp', icon: 'fas fa-box-open text-amber-500' },
+                { id: 5, name: 'Solar Powered Sprayer Pump', type: 'Machinery', price: '₹18,000', availability: 'Medium', seller: 'SunAgri Tech', icon: 'fas fa-solar-panel text-yellow-500' },
+                { id: 6, name: 'Compost Booster Culture', type: 'Organic Input', price: '₹300/packet', availability: 'High', seller: 'BioBoost', icon: 'fas fa-trash-can text-lime-500' },
+            ];
+
+            container.innerHTML = `
+                <h2 class="text-4xl font-extrabold text-lime-800 mb-8 border-b-4 border-lime-200 pb-3">Farming Products & Supplies</h2>
+                <p class="text-lg text-gray-600 mb-8">Source quality seeds, fertilizers, and equipment from certified suppliers.</p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+                    ${products.map(product => `
+                        <div class="bg-white p-6 rounded-2xl shadow-lg border border-gray-100 transition duration-200 hover:shadow-xl">
+                            <div class="flex items-center justify-between">
+                                <h3 class="text-xl font-bold text-gray-800">${product.name}</h3>
+                                <i class="${product.icon} text-2xl"></i>
+                            </div>
+                            <p class="text-sm text-gray-500 mt-1">${product.type} | Seller: ${product.seller}</p>
+                            
+                            <div class="flex justify-between items-center mt-4">
+                                <span class="text-3xl font-extrabold text-lime-600">${product.price}</span>
+                                <span class="text-sm font-medium px-3 py-1 rounded-full ${product.availability === 'High' ? 'bg-green-100 text-green-700' : product.availability === 'Low' ? 'bg-red-100 text-red-700' : 'bg-yellow-100 text-yellow-700'}">
+                                    Stock: ${product.availability}
+                                </span>
+                            </div>
+                            <button class="w-full mt-4 bg-lime-600 hover:bg-lime-700 text-white font-medium py-3 rounded-xl transition duration-150">
+                                <i class="fas fa-shopping-cart mr-2"></i> Enquire Now
+                            </button>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+        }
+
+        function renderReportTab(container) {
+            container.innerHTML = `
+                <h2 class="text-4xl font-extrabold text-red-700 mb-8 border-b-4 border-red-200 pb-3">Report Problems & Issues</h2>
+                <p class="text-lg text-gray-600 mb-8">Submit grievances related to infrastructure, supply chain, or official misconduct directly to the government department for resolution.</p>
+
+                <div class="bg-red-50 p-6 rounded-2xl shadow-xl border border-red-300">
+                    <form onsubmit="submitReport(event)">
+                        <div class="space-y-4">
+                            <div>
+                                <label for="reportType" class="block text-sm font-medium text-gray-700">Issue Category <span class="text-red-500">*</span></label>
+                                <select name="reportType" id="reportType" required class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-red-500 focus:ring-red-500 p-3 border">
+                                    <option value="">-- Select Issue Type --</option>
+                                    <option value="Scheme Payment Delay">Scheme Payment/Subsidy Delay</option>
+                                    <option value="Input Quality">Poor Quality Seeds/Fertilizer Supply</option>
+                                    <option value="Infrastructure">Irrigation/Road/Power Failure</option>
+                                    <option value="Misconduct">Official Misconduct/Corruption</option>
+                                    <option value="Disaster Loss">Crop Loss Assessment/Compensation</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label for="location" class="block text-sm font-medium text-gray-700">Location/Village Name <span class="text-red-500">*</span></label>
+                                <input type="text" name="location" id="location" required class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-red-500 focus:ring-red-500 p-3 border" placeholder="e.g., Khera Village, Bhopal District">
+                            </div>
+                            <div>
+                                <label for="description" class="block text-sm font-medium text-gray-700">Detailed Description of Problem <span class="text-red-500">*</span></label>
+                                <textarea name="description" id="description" rows="5" required class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-red-500 focus:ring-red-500 p-3 border" placeholder="Describe the problem, affected area, and date it started."></textarea>
+                            </div>
+                        </div>
+                        <div class="mt-6 flex justify-end">
+                            <button type="submit" class="inline-flex justify-center py-3 px-8 border border-transparent shadow-md text-base font-medium rounded-xl text-white bg-red-600 hover:bg-red-700 transition duration-150">
+                                <i class="fas fa-file-invoice mr-2"></i> Submit Formal Report
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            `;
+        }
+
+
+        // --- Event Listeners and Initial Load ---
+        document.querySelectorAll('.tab-btn').forEach(button => {
+            button.addEventListener('click', (e) => {
+                loadTab(e.target.closest('button').dataset.tab);
+            });
+        });
+
+        // Start the application
+        initializeFirebase();
+
+    </script>
+</body>
+</html>

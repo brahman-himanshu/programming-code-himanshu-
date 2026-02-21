@@ -1,0 +1,42 @@
+body {
+  font-family: Arial, sans-serif;
+  background: #f5f5f5;
+  margin: 0;
+  padding: 0;
+  margin-top: 4rem;
+}
+
+#main {
+  width: 80%;
+  margin: auto;
+  background: white;
+  box-shadow: 0 0 10px #aaa;
+  padding: 20px;
+}
+
+.logo {
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.navigation ul {
+  list-style-type: none;
+  background-color: #333;
+  overflow: hidden;
+  padding: 0;
+}
+
+.navigation li {
+  float: left;
+}
+
+.navigation li a {
+  display: block;
+  padding: 10px;
+  color: white;
+  text-decoration: none;
+}
+
+.navigation li a:hover {
+  background-color: #111;
+}

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>CRM Home</title>
+ <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <div id="main">
+    <div class="logo">CRM <span style="color:#CC6600;;">CRM</span></div>
+    <div class="navigation">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="services1.html">Services</a></li>
+        <li><a href="products2.html">Products</a></li>
+        <li><a href="customer1.html">Customers</a></li>
+        <li><a href="contact.jsp">Contacts</a></li>
+      </ul>
+    </div>
+    <div class="content">
+      <div class="left">
+        <a href="./login.html">• Login</a>
+        <a href="./registration.html">• Register</a>
+      </div>
+      <div class="right">
+        <h1><img src="images/home_icon.png" alt="" /> Welcome</h1>
+        <p><strong>Customer relationship management</strong> is a broadly recognized strategy for managing and nurturing client interactions.</p>
+      </div>
+    </div>
+    <div align ="center">Copyright &copy;. All Rights Reserved</div>
+  </div>
+</body>
+</html>
+
+<h1 style="margin-bottom: 3rem;"></h1>
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>CRM Dashboard</title>
+  <link href="./style.css" rel="stylesheet" type="text/css" />
+  <link rel="stylesheet" href="./Untitled-1.sql">
+  <style>
+    .dashboard {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      margin-top: 20px;
+    }
+    .card {
+      background: #ffffff;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      padding: 20px;
+      text-align: center;
+    }
+    .card h2 {
+      font-size: 22px;
+      margin-bottom: 10px;
+    }
+    .card p {
+      font-size: 16px;
+      color: #555;
+    }
+    .header {
+      text-align: center;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div id="main">
+    <div class="logo">CRM <span style="color:#CC6600;">Dashboard</span></div>
+    <div class="navigation">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="products2.html">Products</a></li>
+        <li><a href="customers.html">Customers</a></li>
+        <li><a href="sales.html">Sales</a></li>
+        <li><a href="feedback.html">Feedback</a></li>
+        <li><a href="logout.html">Logout</a></li>
+      </ul>
+    </div>
+
+    <div class="header">
+      <h1>Welcome to the CRM Dashboard</h1>
+      <p>Here is a quick overview of your business data</p>
+    </div>
+
+    <div class="dashboard">
+      <div class="card">
+        <h2>145</h2>
+        <p>Registered Customers</p>
+      </div>
+      <div class="card">
+        <h2>36</h2>
+        <p>Products Available</p>
+      </div>
+      <div class="card">
+        <h2>19</h2>
+        <p>Pending Complaints</p>
+      </div>
+      <div class="card">
+        <h2>12</h2>
+        <p>New Feedbacks</p>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
