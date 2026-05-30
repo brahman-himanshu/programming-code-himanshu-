@@ -1,25 +1,29 @@
-#include <iostream>
+#include<iostream>
 using namespace std;
 
-int main() {
+int main()
+{
+    int A[2][2] = {{1,2},{3,4}};
+    int B[2][2] = {{5,6},{7,8}};
+    int C[2][2];
 
-    // First array
-    int a[3] = {1, 2, 3};
+    for(int i=0; i<2; i++)
+    {
+        for(int j=0; j<2; j++)
+        {
+            C[i][j] = A[i][j] + B[i][j];
+        }
+    }
 
-    // Second array
-    int b[3] = {4, 5, 6};
+    cout<<"Result Matrix:"<<endl;
 
-    // Array to store sum
-    int sum[3];
-
-    // Loop for addition
-    for(int i = 0; i < 3; i++) {
-
-        // Add elements
-        sum[i] = a[i] + b[i];
-
-        // Print result
-        cout << sum[i] << " ";
+    for(int i=0; i<2; i++)
+    {
+        for(int j=0; j<2; j++)
+        {
+            cout<<C[i][j]<<" ";
+        }
+        cout<<endl;
     }
 
     return 0;
