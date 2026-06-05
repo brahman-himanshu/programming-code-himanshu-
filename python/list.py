@@ -8,7 +8,8 @@ thislist.append  ("sharma ")
 print(thislist)
 print(type(thislist))
 print(len(thislist))
-
+thislist.append("ji")
+print(thislist)
 
 
 
