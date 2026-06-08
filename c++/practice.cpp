@@ -81,40 +81,43 @@
 // linear search 
 
 
-#include<iostream>
-using namespace std;
+// #include<iostream>
+// using namespace std;
 
-int main() {
-    int target, i, n;
+// int main() {
+//     int target, i, n;
 
-    cout << "Enter the size of array: ";
-    cin >> n;
+//     cout << "Enter the size of array: ";
+//     cin >> n;
 
-    int arr[n];
+//     int arr[n];
 
-    cout << "Enter the array elements:\n";
-    for(i = 0; i < n; i++) {
-        cin >> arr[i];
-    }
+//     cout << "Enter the array elements:\n";
+//     for(i = 0; i < n; i++) {
+//         cin >> arr[i];
+//     }
 
-    cout << "Enter the target: ";
-    cin >> target;
+//     cout << "Enter the target: ";
+//     cin >> target;
 
-    bool found = false;
+//     bool found = false;
 
-    for(i = 0; i < n; i++) {
-        if(arr[i] == target) {
-            found = true;
-            break;
-        }
-    }
+//     for(i = 0; i < n; i++) {
+//         if(arr[i] == target) {
+//             found = true;
+//             break;
+//         }
+//     }
 
-    if(found) {
-        cout << "Target Found";
-    }
-    else {
-        cout << "Target Not Found";
-    }
+//     if(found) {
+//         cout << "Target Found";
+//     }
+//     else {
+//         cout << "Target Not Found";
+//     }
 
-    return 0;
-}
+//     return 0;
+// }
+
+
+// 
