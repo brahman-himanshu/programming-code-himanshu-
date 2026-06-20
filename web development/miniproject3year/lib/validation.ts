@@ -1,5 +1,22 @@
 export type PasswordStrength = "weak" | "fair" | "good" | "strong";
 
+export function splitFullName(fullName: string): {
+  first_name: string;
+  last_name: string;
+} {
+  const trimmed = fullName.trim();
+  const spaceIndex = trimmed.indexOf(" ");
+
+  if (spaceIndex === -1) {
+    return { first_name: trimmed, last_name: "" };
+  }
+
+  return {
+    first_name: trimmed.slice(0, spaceIndex),
+    last_name: trimmed.slice(spaceIndex + 1).trim(),
+  };
+}
+
 export function getPasswordStrength(password: string): {
   strength: PasswordStrength;
   score: number;

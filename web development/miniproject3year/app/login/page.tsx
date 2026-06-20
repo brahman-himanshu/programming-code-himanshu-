@@ -2,6 +2,7 @@
 
 import { useState, type FormEvent } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import {
   AlertCircle,
   CheckCircle2,
@@ -17,16 +18,19 @@ import Button from "@/components/Button";
 import Footer from "@/components/Footer";
 import InputField from "@/components/InputField";
 import Navbar from "@/components/Navbar";
+import { extractUserId, loginUser } from "@/lib/api";
+import { saveAuthSession } from "@/lib/auth";
 import { validateMobileNumber } from "@/lib/validation";
 
 export default function LoginPage() {
+  const router = useRouter();
   const [mobile, setMobile] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setErrorMessage("");
     setSuccessMessage("");
@@ -44,10 +48,31 @@ export default function LoginPage() {
     }
 
     setIsLoading(true);
-    setTimeout(() => {
+
+    try {
+      const response = await loginUser({ mobile, password });
+      saveAuthSession({ ...response, mobile });
+
+      const message =
+        typeof response.message === "string"
+          ? response.message
+          : "Login successful! Welcome back.";
+
+      setSuccessMessage(message);
+
+      const userId = extractUserId(response);
+      setTimeout(() => {
+        router.push(userId ? `/dashboard?userId=${userId}` : "/dashboard");
+      }, 1200);
+    } catch (error) {
+      setErrorMessage(
+        error instanceof Error
+          ? error.message
+          : "Login failed. Please check your credentials."
+      );
+    } finally {
       setIsLoading(false);
-      setSuccessMessage("Login successful! Welcome back.");
-    }, 1500);
+    }
   };
 
   return (

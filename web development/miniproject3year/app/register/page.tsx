@@ -2,6 +2,7 @@
 
 import { useState, type FormEvent } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import {
   AlertCircle,
   CheckCircle2,
@@ -14,9 +15,15 @@ import Button from "@/components/Button";
 import Footer from "@/components/Footer";
 import InputField from "@/components/InputField";
 import Navbar from "@/components/Navbar";
-import { getPasswordStrength, validateMobileNumber } from "@/lib/validation";
+import { registerUser } from "@/lib/api";
+import {
+  getPasswordStrength,
+  splitFullName,
+  validateMobileNumber,
+} from "@/lib/validation";
 
 export default function RegisterPage() {
+  const router = useRouter();
   const [fullName, setFullName] = useState("");
   const [mobile, setMobile] = useState("");
   const [password, setPassword] = useState("");
@@ -35,7 +42,7 @@ export default function RegisterPage() {
   const passwordsMatch =
     confirmPassword.length > 0 && password === confirmPassword;
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setErrorMessage("");
     setSuccessMessage("");
@@ -61,12 +68,34 @@ export default function RegisterPage() {
     }
 
     setIsLoading(true);
-    setTimeout(() => {
-      setIsLoading(false);
-      setSuccessMessage(
-        "Account created successfully! Redirecting to login..."
+
+    try {
+      const { first_name, last_name } = splitFullName(fullName);
+      const response = await registerUser({
+        first_name,
+        last_name,
+        mobile,
+        password,
+      });
+      const message =
+        typeof response.message === "string"
+          ? response.message
+          : "Account created successfully! Redirecting to login...";
+
+      setSuccessMessage(message);
+
+      setTimeout(() => {
+        router.push("/login");
+      }, 1500);
+    } catch (error) {
+      setErrorMessage(
+        error instanceof Error
+          ? error.message
+          : "Registration failed. Please try again."
       );
-    }, 1500);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
