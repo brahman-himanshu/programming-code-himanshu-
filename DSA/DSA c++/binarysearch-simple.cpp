@@ -2,13 +2,27 @@
 using namespace std;
 
 int main()
+
 {
-    int arr[5] = {1, 3, 5, 7, 9};
+    int n ;
+  cout<<"enter the size of the array";
+cin>>n;
 
     int start = 0;
-    int end = 4;
+    int end = n-1;
 
-    int target = 7;
+    int target ;
+    cout<<"enter the target for searching in array";
+    cin>>target;
+
+ int arr[n];
+ cout<<"enter the array ";
+ for (int  i = 0; i < n; i++)
+ {
+    cin>>arr[i];
+ }
+ 
+
 
     while(start <= end)
     {

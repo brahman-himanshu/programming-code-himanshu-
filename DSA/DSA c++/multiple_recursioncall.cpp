@@ -12,6 +12,6 @@ int main (){
     int n ;
     cout<<"enter the n numbr of fibonacci " ;
     cin>>n;
-    fun(n) ;
-
+    cout << fun(n) ;
+return 0 ;
 }
