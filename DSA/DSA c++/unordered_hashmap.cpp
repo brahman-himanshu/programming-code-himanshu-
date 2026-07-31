@@ -16,6 +16,8 @@ int main (){
   }
 
 
+  
+
   int q;
   cout<<"enter the queries "<<endl;
   cin >>q;
