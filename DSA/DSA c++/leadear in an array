@@ -1,0 +1,45 @@
+brute approach 
+Problem
+
+Array mein koi element leader tab hota hai jab uske right side ke saare elements usse smaller hon.
+
+Example:
+
+[10, 22, 12, 3, 0, 6]
+
+Leaders:
+
+22 → right mein 12,3,0,6 hain, sab chhote → ✅
+12 → right mein 3,0,6, sab chhote → ✅
+6 → right mein kuch nahi → ✅
+10 → right mein 22 hai, jo bada hai → ❌
+3 → right mein 6 hai → ❌
+
+Answer: 22 12 6
+
+solution 
+
+vector<int> leaders(vector<int>& nums) {
+
+    int n = nums.size();
+    vector<int> ans;
+
+    for(int i = 0; i < n; i++) {
+
+        bool isLeader = true;
+
+        for(int j = i + 1; j < n; j++) {
+
+            if(nums[j] >= nums[i]) {
+                isLeader = false;
+                break;
+            }
+        }
+
+        if(isLeader) {
+            ans.push_back(nums[i]);
+        }
+    }
+
+    return ans;
+}
