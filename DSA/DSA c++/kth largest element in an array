@@ -1,0 +1,11 @@
+class Solution {
+public:
+    int findKthLargest(vector<int>& nums, int k) {
+
+        // Array ko ascending order me sort kar diya
+        sort(nums.begin(), nums.end());
+
+        // Kth largest element return
+        return nums[nums.size() - k];
+    }
+};
